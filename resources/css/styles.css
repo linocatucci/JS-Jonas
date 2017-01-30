@@ -1,0 +1,644 @@
+        /*---------------------------------------------------------------------------------
+
+   1st blue color #9CD1FF
+/* 2nd Blue color #7DA7CC; */
+        /* first setup of a responsive project */
+        /* no marging and padding on any element and use the border box */
+        /*---------------------------------------------------------------------------------*/
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html,
+        body {
+            background-color: #fff;
+            color: #333333;
+            font-family: 'Lato', 'Arial', sans-serif;
+            font-size: 20px;
+            font-weight: 300;
+            text-rendering: optimizeLegibility;
+            /* smaller screens, the overflow will be hidden */
+            overflow-x: hidden;
+        }
+        
+        .clearfix {
+            zoom: 1;
+        }
+        
+        .clearfix:after {
+            content: '.';
+            clear: both;
+            display: block;
+            height: 0;
+            visibility: hidden;
+        }
+        /*---------------------------------------------------------------------------------
+
+reusable components
+/*---------------------------------------------------------------------------------*/
+        
+        .row {
+            max-width: 1140px;
+            margin: 0 auto;
+        }
+        
+        section {
+            padding: 5px 0;
+        }
+        
+        .box {
+            padding: 1%;
+        }
+        /* HEADINGS */
+        
+        h1,
+        h2,
+        h3 {
+            font-weight: 300;
+            text-transform: uppercase;
+        }
+        
+        h1 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: #fff;
+            word-spacing: 4px;
+            font-size: 180%;
+            letter-spacing: 1px;
+        }
+        
+        h2 {
+            /* dit is 2x de fontsize van de global fontsize in html block declaratie 200% = 40px */
+            font-size: 150%;
+            letter-spacing: 1px;
+            word-spacing: 2px;
+            text-align: center;
+            margin-bottom: 30px;
+            margin-top: 25px;
+        }
+        
+        h3 {
+            font-size: 110%;
+            margin-bottom: 15px;
+        }
+        
+        h2:after {
+            /* whole width and force line breaks */
+            display: block;
+            height: 2px;
+            background: #9CD1FF;
+            content: " ";
+            width: 100px;
+            /* make it centered-> margin: 0 auto */
+            margin: 0 auto;
+            margin-top: 30px;
+        }
+        
+        .h2-under-sticky {
+            margin-top: 60px;
+        }
+        /*---------------------------------------------------------------------------------
+/* HEADER /* first setup of a responsive project
+/*---------------------------------------------------------------------------------*/
+        
+        .header-front-page {
+            background-attachment: fixed;
+            /* background-image: url(img/macbook_moleskine.jpeg); */
+            height: 55vh;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .header-portfolio-front-page {
+            background-attachment: fixed;
+            /* background-image: url(img/macbook_moleskine.jpeg); */
+            height: 55vh;
+            background-size: cover;
+            background-position: center;
+            background-position: 50% 20%;
+        }
+        
+        h1 {
+            color: #efefef;
+            text-align: center;
+            font-size: 250%;
+            font-weight: 300;
+            letter-spacing: 1px;
+            word-spacing: 2px;
+        }
+        /******** GENERIC LINK *********/
+        
+        a:link,
+        a:visited {
+            text-decoration: none;
+        }
+        /******** BUTTONS *********/
+        
+        .btn:link,
+        .btn:visited,
+        input[type=submit] {
+            display: inline-block;
+            padding: 10px 30px;
+            font-weight: 300;
+            margin-top: 25px;
+            margin-bottom: 35px;
+            transition: background-color 0.2s, border 0.2s;
+            font-family: 'Lato', 'Arial', sans-serif;
+            font-weight: 300;
+            font-size: 100%;
+        }
+        
+        .btn-full:link,
+        .btn-full:visited,
+        input[type=submit] {
+            color: #fff;
+            background-color: #9CD1FF;
+            border: 1px solid #9CD1FF;
+            border-radius: 3px;
+        }
+        
+        .btn-full:hover,
+        .btn-full:active,
+        input[type=submit]:hover,
+        input[type=submit]:active {
+            color: #fff;
+            background-color: #7DA7CC;
+            border: 1px solid #7DA7CC;
+        }
+        
+        .linkedin-row {
+            text-align: center;
+        }
+        /******** HERO TEXT *********/
+        
+        .logo-text:link,
+        .logo-text:visited {
+            margin-top: 30px;
+            display: inline-block;
+            font-size: 120%;
+            text-decoration: none;
+            margin-top: 30px;
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.2s
+        }
+        
+        .logo-text:active,
+        .logo-text:hover {
+            color: #9CD1FF;
+        }
+        
+        .hero-text-quote {
+            margin-top: 100px;
+        }
+        /******** MAIN NAVIGATION MENU ********/
+        
+        .main-nav {
+            float: right;
+            list-style: none;
+            margin-top: 30px;
+            display: inline-block;
+        }
+        
+        .main-nav li {
+            display: inline-block;
+        }
+        
+        .main-nav li a:link,
+        .main-nav li a:visited {
+            padding-bottom: 8px;
+            color: #fff;
+            text-decoration: none;
+            margin-left: 30px;
+            border-bottom: solid 2px transparent;
+            transition: border-bottom 0.2s, border 0.2s, color 0.2s;
+        }
+        
+        .main-nav li a:hover,
+        .main-nav li a:active {
+            border-bottom: solid 2px #9CD1FF;
+        }
+        /******** STICKY NAVIGATION MENU ********/
+        
+        .sticky {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            background-color: rgba(255, 255, 255, 0.98);
+            box-shadow: 0px 2px 2px #efefef;
+        }
+        
+        .sticky .main-nav {
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .sticky .main-nav li a:link,
+        .sticky .main-nav li a:visited {
+            padding-bottom: 8px 0;
+            color: #555;
+            font-size: 90%;
+        }
+        
+        .sticky .logo-text:link,
+        .sticky .logo-text:visited {
+            margin-top: 15px;
+            color: #555;
+            font-size: 100%;
+        }
+        
+        .sticky .logo-text:active,
+        .sticky .logo-text:hover {
+            color: #9CD1FF;
+        }
+        /* MOBILE NAVI */
+        
+        .mobile-nav-icon {
+            float: right;
+            cursor: pointer;
+            display: none;
+        }
+        
+        .mobile-nav-icon i {
+            font-size: 150%;
+            color: #fff;
+        }
+        /******** ABOUT ME BLOCK ********/
+        
+        .about-myself-row h2 {
+            background-color: #fff;
+            text-transform: none;
+            margin-top: 35px;
+        }
+        
+        .about-myself-row h3 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .long-copy {
+            line-height: 170%;
+            padding: 1%;
+            width: 90%;
+            margin: 0 5%;
+            /* marging left and right of 15% = 30% total + 70% width makes 100% */
+        }
+        
+        .skills-rows h3 {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .skill-list-col {
+            padding: 0 5%;
+        }
+        
+        .skill-list {
+            font-size: 100%;
+            line-height: 145%;
+            float: left;
+        }
+        
+        .skill-list li {
+            padding: 2px 0;
+        }
+        /******** SECTION ABOUT-ME ********/
+        
+        .section-about-me {
+            background-color: #f4f4f4;
+        }
+        
+        .quote-text {
+            font-size: 90%;
+            font-weight: bold;
+            padding: 1%;
+            width: 100%;
+            text-transform: none;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        
+        .about-me-copy {
+            line-height: 170%;
+            padding: 1%;
+            width: 90%;
+            margin: 0 5%;
+            color: #000;
+            margin-bottom: 25px;
+            /* marging left and right of 15% = 30% total + 70% width makes 100% */
+        }
+        
+        .about-me-copy blockquote {
+            margin: 10px 0;
+            padding: 10px 20px;
+            border-left: 5px solid #e2e2e2;
+            color: #1f1f1f;
+            font-size: 100%;
+            line-height: 130%;
+            font-style: italic;
+            font-weight: 300;
+        }
+        
+        .w-richtext-align-floatright img {
+            width: 300px;
+            height: auto;
+            float: right;
+            margin-bottom: 15px;
+            margin-left: 15px;
+            margin-top: 10px
+        }
+        /******** SECTION LET'S WORK TOGETHER ********/
+        
+        .section-lets-work-together {
+            padding: 1%;
+            background-color: #3bc984;
+        }
+        
+        .lets-work-together-text {
+            text-align: center;
+            margin-top: 30px;
+            color: #fff;
+            font-weight: 700;
+            font-size: 150%;
+            line-height: 145%;
+        }
+        /******** MODAL BOX ********/
+        /* The Modal (background) */
+        /* Form sending email */
+        
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            padding-top: 100px;
+            /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
+        }
+        /* Modal Content */
+        
+        .modal-content {
+            position: relative;
+            background-color: #fefefe;
+            margin: auto;
+            padding: 0;
+            border: 1px solid #888;
+            width: 80%;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            -webkit-animation-name: animatetop;
+            -webkit-animation-duration: 0.4s;
+            animation-name: animatetop;
+            animation-duration: 0.4s
+        }
+        /* Add Animation */
+        
+        @-webkit-keyframes animatetop {
+            from {
+                top: -300px;
+                opacity: 0
+            }
+            to {
+                top: 0;
+                opacity: 1
+            }
+        }
+        
+        @keyframes animatetop {
+            from {
+                top: -300px;
+                opacity: 0
+            }
+            to {
+                top: 0;
+                opacity: 1
+            }
+        }
+        /* The Close Button */
+        
+        .close {
+            color: white;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .modal-header {
+            padding: 2px 16px;
+            background-color: #3bc984;
+            color: white;
+        }
+        
+        .modal-header h2:after {
+            margin-top: 20px;
+        }
+        
+        .modal-body {
+            padding: 2px 16px;
+        }
+        
+        .modal-footer {
+            padding: 2px 16px;
+            background-color: #3bc984;
+            color: white;
+        }
+        
+        .modal-footer h3 {
+            text-align: center;
+            margin-top: 20px;
+        }
+        /******** CONTACT FORM ********/
+        
+        .contact-form {
+            width: 70%;
+            margin: 0 auto;
+            margin-top: 15px;
+        }
+        
+        .label-col {
+            text-align: center;
+        }
+        
+        input[type=text],
+        input[type=email],
+        textarea {
+            -webkit-transition: all 0.30s ease-in-out;
+            -moz-transition: all 0.30s ease-in-out;
+            -ms-transition: all 0.30s ease-in-out;
+            -o-transition: all 0.30s ease-in-out;
+            width: 100%;
+            outline: none;
+            padding: 3px 0px 3px 3px;
+            margin: 0px 1px 3px 0px;
+            border: 1px solid #ccc;
+            font-family: 'Lato', 'Arial', sans-serif;
+            font-weight: 300;
+            font-size: 100%;
+        }
+        
+        input[type=text]:focus,
+        input[type=email]:focus,
+        textarea:focus {
+            box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+            padding: 3px 0px 3px 3px;
+            margin: 0px 1px 3px 0px;
+            border: 1px solid rgba(81, 203, 238, 1);
+        }
+        
+        textarea {
+            height: 100px;
+        }
+        
+        .submit-btn input[type=submit] {
+            margin-top: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .modal-footer p {
+            text-align: center;
+            margin: 15px 0;
+            font-size: 80%;
+        }
+        /******** FORM MESSAGES ********/
+        
+        .form-messages {
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            border-radius: 3px;
+            margin-bottom: 20px;
+            color: #333;
+            border: 1px solid #333;
+        }
+        
+        .succes {
+            background-color: rgba(20, 21, 21, 0.8);
+        }
+        
+        .error {
+            background-color: rgba(227, 62, 62, 0.80)
+        }
+        /******** SECTION PORTFOLIO LIST ********/
+        
+        .portfolio-list-column {
+            padding: 1%;
+        }
+        
+        .portfolio-list-column {
+            text-align: center;
+        }
+        
+        .portfolio-list-column P {
+            margin-bottom: 15px;
+        }
+        
+        .portfolio-list-column img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 15px;
+            border: 1px solid #909090;
+        }
+        
+        .portfolio-item-title {
+            text-align: center;
+        }
+        
+        .btn-view-more {
+            text-align: center;
+        }
+        
+        .site-link {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        /******** FOOTER NAVIGATION MENU ********/
+        
+        footer {
+            background-color: #2e2e2e;
+            padding: 10px;
+            font-size: 80%;
+        }
+        
+        .footer-nav {
+            float: right;
+            list-style: none;
+            margin-top: 30px;
+            display: inline-block;
+        }
+        
+        .footer-nav li {
+            display: inline-block;
+        }
+        
+        .footer-nav li a:link,
+        .footer-nav li a:visited {
+            padding-bottom: 8px;
+            color: #fff;
+            text-decoration: none;
+            margin-left: 30px;
+            border-bottom: solid 2px transparent;
+            transition: border-bottom 0.3s, border 0.3s, color 0.3s;
+        }
+        
+        .footer-nav li a:hover,
+        .footer-nav li a:active {
+            color: #9CD1FF;
+        }
+        
+        .social-icons {
+            display: block;
+            text-align: center;
+            margin: 10px auto;
+        }
+        
+        .social-icons {
+            color: #fff;
+        }
+        
+        .social-icons img {
+            width: 30px;
+            height: auto;
+            text-align: center;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            border-radius: 3px;
+            background-color: #000;
+            opacity: 0.5;
+            transition: opacity 0.3s;
+        }
+        
+        .social-icons img:hover {
+            opacity: 1;
+        }
+        
+        .copyright-info {
+            text-align: center;
+            margin-top: 15px;
+            margin-bottom: 20px;
+            color: #fff;
+            font-size: 80%;
+        }
