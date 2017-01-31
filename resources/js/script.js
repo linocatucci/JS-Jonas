@@ -32,10 +32,34 @@ if (totalJohn > totalCarl && totalJohn > totalMarc){
 }
 */
 
-function calculateAge(dateOfBirth){
+//1e functie die moet de leeftijd uitrekenen op basis
+//van het geboorte jaar
+//2e functie moet op basis van je leeftijd uitrekeken
+// hoelang je nog moet werken voor je met pensioen mag
+
+function calculateAge(dateOfBirth) {
     var age = 2016 - dateOfBirth;
     return age;
-    
+}
+
+function ageUntilRetirement(name, year) {
+    var age = calculateAge(year);
+    var yearToRetirement = 65 - age;
+    console.log(name + ' retires in the year ' + yearToRetirement);
+}
+
+var ageLino = calculateAge(1971);
+
+console.log('Age of Lino ' + ageLino);
+
+ageUntilRetirement('lino', 1971);
+
+/*
+
+function calculateAge(dateOfBirth) {
+    var age = 2016 - dateOfBirth;
+    return age;
+
 }
 
 var ageJohn = calculateAge(1971);
@@ -49,12 +73,70 @@ console.log(agePeter);
 //uitrekenen wanneer iemand met pensioen mag.
 //naam van de persoon en de leeftijd van de persoon
 // uitrekenen hoeveel jaar de persoon nog moet werken
-function ageUntilRetirement(name, year){
+function ageUntilRetirement(name, year) {
     var age = calculateAge(year);
     var yearsToRetirement = 65 - age;
-    console.log(name + ' retires in the year ' +  yearsToRetirement);
+    console.log(name + ' retires in the year ' + yearsToRetirement);
 }
 
 ageUntilRetirement('lino', 1971);
 ageUntilRetirement('Suzan', 1972);
 ageUntilRetirement('Ton', 1965);
+
+*/
+
+//BMI formule: Gewicht in kilogram / (Lengte in meter * //Lengte in meter)
+
+function calculateBMI(weight, length) {
+
+    var BMI = weight / length;
+    return BMI;
+}
+
+var BMILino = calculateBMI(70, 168);
+console.log('BMI van Lino ' + BMILino);
+
+function correctBMI(weight, length) {
+    console.log('input werkt');
+    var BMI = calculateBMI(weight, length);
+    console.log('BMI ' + BMI);
+
+    /* switch (BMI) {
+
+     case (BMI <= 60):
+
+         console.log(' Your BMI is way to low');
+         break;
+     case (BMI <= 80):
+         console.log(' Your BMI is almost good');
+         break;
+     case (BMI <= 90):
+         console.log(' Your BMI is good');
+         break;
+     case (BMI <= 110):
+         console.log(' Your BMI is too high');
+         break;
+     case (BMI > 115):
+         console.log(' Your BMI is not good, you need to loose weight');
+         break;
+     }
+     */
+    if (BMI < 0.30) {
+        console.log(' Your BMI is way to low');
+    } else if (BMI > 0.40) {
+        console.log(' Your BMI is almost good');
+    } else if (BMI > 0.50) {
+        console.log(' Your BMI is too high');
+    }
+}
+
+correctBMI(74, 168);
+
+var names = ['lino', 'john', 'suzan'];
+var years = [1990, 1969, 1948];
+
+console.log(names[1]);
+
+names[1] = 'ben';
+console.log(names[1]);
+console.log(names);
