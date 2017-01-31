@@ -1,4 +1,4 @@
-/* var johnHeight = 150;
+var johnHeight = 150;
 var johnAge = 45;
 var carlHeight = 178;
 var carlAge = 45;
@@ -30,31 +30,3 @@ if (totalJohn > totalCarl && totalJohn > totalMarc){
 } else {
         console.log('it\'s a draw' );
 }
-*/
-
-function calculateAge(dateOfBirth){
-    var age = 2016 - dateOfBirth;
-    return age;
-    
-}
-
-var ageJohn = calculateAge(1971);
-var ageMary = calculateAge(1956);
-var agePeter = calculateAge(1968);
-
-console.log(ageJohn);
-console.log(ageMary);
-console.log(agePeter);
-
-//uitrekenen wanneer iemand met pensioen mag.
-//naam van de persoon en de leeftijd van de persoon
-// uitrekenen hoeveel jaar de persoon nog moet werken
-function ageUntilRetirement(name, year){
-    var age = calculateAge(year);
-    var yearsToRetirement = 65 - age;
-    console.log(name + ' retires in the year ' +  yearsToRetirement);
-}
-
-ageUntilRetirement('lino', 1971);
-ageUntilRetirement('Suzan', 1972);
-ageUntilRetirement('Ton', 1965);
