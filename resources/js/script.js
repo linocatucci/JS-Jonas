@@ -89,7 +89,7 @@ ageUntilRetirement('Ton', 1965);
 
 function calculateBMI(weight, length) {
 
-    var BMI = weight / length;
+    var BMI = weight / (length * length);
     return BMI;
 }
 
