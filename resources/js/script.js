@@ -37,7 +37,7 @@ function calculateAge(dateOfBirth) {
     return age;
 
 }
-
+/*
 var ageJohn = calculateAge(1971);
 var ageMary = calculateAge(1956);
 var agePeter = calculateAge(1968);
@@ -136,7 +136,7 @@ ageUntilRetirement('Ton', 1965);
 */
 
 //BMI formule: Gewicht in kilogram / (Lengte in meter * //Lengte in meter)
-
+/*
 function calculateBMI(weight, length) {
 
     var BMI = weight / length;
@@ -169,6 +169,7 @@ function correctBMI(weight, length) {
          break;
      }
      */
+/*
     if (BMI < 0.30) {
         console.log(' Your BMI is way to low');
     } else if (BMI > 0.40) {
@@ -177,7 +178,8 @@ function correctBMI(weight, length) {
         console.log(' Your BMI is too high');
     }
 }
-
+*/
+/*
 correctBMI(74, 168);
 
 var names = ['lino', 'john', 'suzan'];
@@ -265,12 +267,91 @@ console.log(jane);
 
 jane['yearOfBirth'] = 1970;
 console.log(jane);
+*/
+//for the block below:
+function calculateAge(dateOfBirth) {
+    var age = 2016 - dateOfBirth;
+    return age;
+}
 
 //objects and methods.
+// v1.0
+/*
 var john = {
     name: 'lino',
     lastName: 'catucci',
-    dateOfBirth: '1971',
+    yearOfBirth: '1971',
     job: 'IT Consultant',
-    isMarried: true
+    isMarried: true,
+    family: ['Carolien', 'Suzan', 'Floor'],
+    calculateAge: function () {
+        return 2016 - this.yearOfBirth;
+    }
+
 };
+
+
+console.log(john);
+console.log(john.family);
+console.log(john.family[2]);
+console.log(john.job);
+console.log(john.family[0]);
+//console.log(john.calculateAge(1971));
+console.log(john.calculateAge());
+
+var age = john.calculateAge();
+john.age = age;
+
+console.log(john);
+*/
+
+// v2.0
+
+var john = {
+    name: 'lino',
+    lastName: 'catucci',
+    yearOfBirth: '1971',
+    job: 'IT Consultant',
+    isMarried: true,
+    family: ['Carolien', 'Suzan', 'Floor'],
+    calculateAge: function () {
+        //return 2016 - this.yearOfBirth;
+        this.age = 2016 - this.yearOfBirth;
+
+    }
+
+};
+
+john.calculateAge();
+console.log(john);
+
+
+
+// oefening objects:
+/*
+- opel astra
+- fly fishing lodge
+
+*/
+
+var OpelAstra = {
+    type_of_car: 'Astra K 2017',
+    engine: 'diesel',
+    horse_power: '140pk',
+    yearOfBuild: 2017,
+    hatchback: false,
+    calculate_end_contract: function (yearOfBuild) {
+        this.calculate_end_contract = this.yearOfBuild + 5;
+    }
+
+};
+
+console.log(OpelAstra);
+OpelAstra.engine = 'bezine';
+OpelAstra.color = 'blue';
+OpelAstra.calculate_end_contract();
+console.log(OpelAstra);
+console.log(OpelAstra.engine, OpelAstra.horse_power);
+
+
+//lecture: loops
