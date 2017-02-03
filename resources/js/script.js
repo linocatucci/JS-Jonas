@@ -488,19 +488,43 @@ var full_2 = printFullAge([2001, 1950, 1965]);
 
 
 
-
-
-
-
-
-
 var years = [2002, 2003, 2004];
+var names = ['lino', 'julia', 'suzan'];
 console.log(years);
-var ages = [];
-console.log(ages);
 
+console.log(names[1]);
 
+names[1] = 'rico';
+names.push('blue');
+names.unshift('Mr');
+names.pop();
+names.shift();
+//alert(names.indexOf('rico'));
 
-for (var i = 0; i < years.length; i++) {
-
+if (names.indexOf('rico') === 1) {
+    console.log('rico komt voor');
 }
+
+console.log(names);
+
+
+var lino = {
+    naam: 'lino',
+    achternaam: 'catucci',
+    getrouw_met: 'suzan',
+    geb_datum: '21 - 10 - 1971'
+
+};
+console.log(lino);
+
+console.log(lino.naam);
+console.log(lino.achternaam);
+
+var xyz = 'getrouw_met';
+console.log(lino.getrouw_met);
+console.log(lino[xyz]);
+
+var jane = new Object();
+jane.naam = 'Jane';
+jane.achternaam = 'Miller';
+console.log(jane);
