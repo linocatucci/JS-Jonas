@@ -94,6 +94,7 @@ if (totalJohn > totalCarl && totalJohn > totalMarc){
 //2e functie moet op basis van je leeftijd uitrekeken
 // hoelang je nog moet werken voor je met pensioen mag
 
+/*
 function calculateAge(dateOfBirth) {
     var age = 2016 - dateOfBirth;
     return age;
@@ -269,10 +270,12 @@ jane['yearOfBirth'] = 1970;
 console.log(jane);
 */
 //for the block below:
+/*
 function calculateAge(dateOfBirth) {
     var age = 2016 - dateOfBirth;
     return age;
 }
+*/
 
 //objects and methods.
 // v1.0
@@ -307,6 +310,8 @@ console.log(john);
 
 // v2.0
 
+/*
+
 var john = {
     name: 'lino',
     lastName: 'catucci',
@@ -333,7 +338,7 @@ console.log(john);
 - fly fishing lodge
 
 */
-
+/*
 var OpelAstra = {
     type_of_car: 'Astra K 2017',
     engine: 'diesel',
@@ -378,7 +383,7 @@ for (var i = names.length - 1; i >= 0; i--) {
     console.log(names[i]);
 }
 */
-
+/*
 // while loop
 // condition is evaluated
 var names = ['Josh', 'Mike', 'Suzan', 'Julia', 'Bob'];
@@ -400,9 +405,102 @@ for (i = 1; i <= 5; i++) {
     }
 }
 
-for (i = 1; i <= 5; i++) {
+for (var i = 1; i <= 5; i++) {
     if (i === 3) {
         continue;
     }
     console.log(i);
+}
+
+*/
+/* coding challange 2 */
+
+
+var yearsOfBorn = [1971, 1972, 1982, 1991, 1989, 2001, 2000, 2005];
+var ages = [];
+
+console.log(yearsOfBorn);
+
+for (var i = 0; i < yearsOfBorn.length; i++) {
+    //fill the empty array with ages of persons
+    ages[i] = 2016 - yearsOfBorn[i];
+
+    /*
+    var age_of_persons = 2016 - yearsOfBorn[i];
+    // console.log(ages);
+    ages.unshift(age_of_persons);
+    */
+
+};
+
+console.log('Ages in the Ages array: ' + ages);
+
+for (var i = 0; i < ages.length; i++) {
+
+    if (ages[i] >= 18) {
+        console.log('You are OF full age (18 years or older)' + ' ' + ' your age is: ' + ages[i]);
+    } else {
+        console.log('You are NOT full age (18 years or older)' + ' ' + ' your age is: ' + ages[i]);
+    }
+};
+
+
+
+var yearsOfBorn = [1971, 1972, 1982, 1991, 1989, 2001, 2000, 2005];
+
+function printFullAge(yearsOfBorn) {
+
+    var ages = [];
+    var fullAges = [];
+
+    console.log(yearsOfBorn);
+
+    for (var i = 0; i < yearsOfBorn.length; i++) {
+        //fill the empty array with ages of persons
+        //ages[i] = 2016 - yearsOfBorn[i];
+
+
+        var age_of_persons = 2016 - yearsOfBorn[i];
+        // console.log(ages);
+        ages.unshift(age_of_persons);
+
+    }
+
+    console.log('Ages in the Ages array: ' + ages);
+
+    for (var i = 0; i < ages.length; i++) {
+
+        if (ages[i] >= 18) {
+            console.log('You are OF full age (18 years or older)' + ' ' + ' your age is: ' + ages[i]);
+            fullAges.push(true);
+        } else {
+            console.log('You are NOT full age (18 years or older)' + ' ' + ' your age is: ' + ages[i]);
+            fullAges.push(false);
+        }
+    }
+    return fullAges;
+
+};
+var yearsOfBorn = [1971, 1972, 1982, 1991, 1989, 2001, 2000, 2005];
+
+var full_1 = printFullAge(yearsOfBorn);
+var full_2 = printFullAge([2001, 1950, 1965]);
+
+
+
+
+
+
+
+
+
+var years = [2002, 2003, 2004];
+console.log(years);
+var ages = [];
+console.log(ages);
+
+
+
+for (var i = 0; i < years.length; i++) {
+
 }
