@@ -13,7 +13,7 @@ var scores, roundScore, activePlayer;
 
 scores = [0, 0];
 roundScore = 0;
-activePlayer = 1; //0 is first player, 1 is second player
+activePlayer = 0; //0 is first player, 1 is second player
 
 
 //console.log(dice);
@@ -60,8 +60,41 @@ document.querySelector('.btn-roll').addEventListener('click', function () {
     diceDOM.style.display = 'block';
     diceDOM.src = 'dice-' + dice + '.png';
 
-
-
     //3. update the round score IF the rolled number was not a 1
+
+    if (dice !== 1) {
+        // add the score
+        // roundscore + dice
+        roundScore += dice;
+        document.querySelector('#current-' + activePlayer).textContent = roundScore;
+    } else {
+        roundScore = 0;
+        // document.querySelector('#current-' + activePlayer).textContent = roundScore;
+        // zelfde als hieronder
+        document.getElementById('current-0').textContent = 0;
+        document.getElementById('current-1').textContent = 0;
+
+        //next player
+        activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
+        // zelfde als 
+        /*
+        if (activePlayer === 0) {
+            activePlayer = 1
+        } else {
+            activePlayer = 0;
+        } */
+
+        // adding / showing the player who is active. Met adding the class of bold letter type
+        // and bolletje bij naam. Add class active to element.
+
+        //als reference: 
+        // document.querySelector('.player-0-panel').classList.remove('active');
+        // document.querySelector('.player-1-panel').classList.add('active');
+        // toggle adds the class if it's not there and remove if it is there
+        document.querySelector('.player-0-panel').classList.toggle('active');
+        document.querySelector('.player-1-panel').classList.toggle('active');
+        document.querySelector('.dice').style.display = 'none';
+
+    }
 
 });
