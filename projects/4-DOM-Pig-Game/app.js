@@ -11,7 +11,7 @@ GAME RULES:
 
 var scores, roundScore, activePlayer;
 
-scores = [0, 0];
+scores = [0, 0]; // 2 getallen
 roundScore = 0;
 activePlayer = 0; //0 is first player, 1 is second player
 
@@ -68,33 +68,61 @@ document.querySelector('.btn-roll').addEventListener('click', function () {
         roundScore += dice;
         document.querySelector('#current-' + activePlayer).textContent = roundScore;
     } else {
-        roundScore = 0;
-        // document.querySelector('#current-' + activePlayer).textContent = roundScore;
-        // zelfde als hieronder
-        document.getElementById('current-0').textContent = 0;
-        document.getElementById('current-1').textContent = 0;
-
         //next player
-        activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
-        // zelfde als 
-        /*
-        if (activePlayer === 0) {
-            activePlayer = 1
-        } else {
-            activePlayer = 0;
-        } */
-
-        // adding / showing the player who is active. Met adding the class of bold letter type
-        // and bolletje bij naam. Add class active to element.
-
-        //als reference: 
-        // document.querySelector('.player-0-panel').classList.remove('active');
-        // document.querySelector('.player-1-panel').classList.add('active');
-        // toggle adds the class if it's not there and remove if it is there
-        document.querySelector('.player-0-panel').classList.toggle('active');
-        document.querySelector('.player-1-panel').classList.toggle('active');
-        document.querySelector('.dice').style.display = 'none';
+        nextPlayer();
 
     }
 
 });
+
+document.querySelector('.btn-hold').addEventListener('click', function () {
+
+    // 1. roundscore moet opgeslagen worden in score voor de juiste player [0], [1] in de array
+
+    scores[activePlayer] += roundScore;
+
+    // update the UI 
+
+    document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
+
+
+    // 2. als je hold clicked dan moet je de activeplayer veranderen
+    // de roundscore moet op 0 gezet worden en volgende speler
+
+    nextPlayer();
+
+    // check if the player won the game (above 100 is a win)
+});
+
+function nextPlayer() {
+    // roundscore moet gerest worden, op 0 gezet worden.
+    roundScore = 0;
+    // document.querySelector('#current-' + activePlayer).textContent = roundScore;
+    // zelfde als hieronder
+    document.getElementById('current-0').textContent = 0;
+    document.getElementById('current-1').textContent = 0;
+
+    //next player
+    activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
+    // zelfde als 
+    /*
+    if (activePlayer === 0) {
+        activePlayer = 1
+    } else {
+        activePlayer = 0;
+    } */
+
+    // adding / showing the player who is active. Met adding the class of bold letter type
+    // and bolletje bij naam. Add class active to element.
+
+    //als reference: 
+    // document.querySelector('.player-0-panel').classList.remove('active');
+    // document.querySelector('.player-1-panel').classList.add('active');
+
+    // toggle adds the class if it's not there and remove if it is there
+    document.querySelector('.player-0-panel').classList.toggle('active');
+    document.querySelector('.player-1-panel').classList.toggle('active');
+    //haal de dobbelsteen plaatje weg
+    document.querySelector('.dice').style.display = 'none';
+
+};
