@@ -9,13 +9,13 @@ GAME RULES:
 
 */
 
-var scores, roundScore, activePlayer, dice;
+var scores, roundScore, activePlayer;
 
 scores = [0, 0];
 roundScore = 0;
 activePlayer = 1; //0 is first player, 1 is second player
 
-dice = Math.floor(Math.random() * 6) + 1;
+
 //console.log(dice);
 
 // methods to select elements from our webpage querySelector
@@ -26,12 +26,42 @@ dice = Math.floor(Math.random() * 6) + 1;
 // hiervoor gebruik je innerHTML method.
 
 // setter
-document.querySelector('#current-' + activePlayer).textContent = dice;
-//document.querySelector('#current-' + activePlayer).innerHTML = '<em>' + dice + '</em>';
+// document.querySelector('#current-' + activePlayer).textContent = dice;
+// document.querySelector('#current-' + activePlayer).innerHTML = '<em>' + dice + '</em>';
 
 
 // getter
 // var x = document.querySelector('#score-0').textContent;
 // console.log(x);
 // to show that you can hide and show an html element via the css property: display : none;
-// document.querySelector('.dice').style.display = 'none';
+document.querySelector('.dice').style.display = 'none';
+
+// getElementById en querySelector doen het zelfde maar getElementById is sneller.
+/*
+console.log(document.querySelector('#score-0').textContent);
+console.log(document.getElementById('score-0').textContent);
+*/
+
+document.getElementById('score-0').textContent = '0';
+document.getElementById('score-1').textContent = '0';
+document.getElementById('current-0').textContent = '0';
+document.getElementById('current-0').textContent = '0';
+
+
+document.querySelector('.btn-roll').addEventListener('click', function () {
+
+    // 1. random number
+    var dice = Math.floor(Math.random() * 6) + 1;
+
+    // 2. display the result of 1.
+    // variable of the dice object , scheelt schrijven, hoef je niet steeds de selectie opnieuw te maken
+    // eerste de dobbelsteen image hiden, dan daarna de nr van de dice vast plakken aan de image en deze tonen
+    var diceDOM = document.querySelector('.dice');
+    diceDOM.style.display = 'block';
+    diceDOM.src = 'dice-' + dice + '.png';
+
+
+
+    //3. update the round score IF the rolled number was not a 1
+
+});
