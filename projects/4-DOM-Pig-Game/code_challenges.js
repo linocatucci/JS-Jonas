@@ -68,13 +68,17 @@ document.querySelector('.btn-roll').addEventListener('click', function () {
     if (gamePlaying) {
         // 1. random number
         var dice = Math.floor(Math.random() * 6) + 1;
+        var dice2 = Math.floor(Math.random() * 6) + 1;
 
         // 2. display the result of 1.
         // variable of the dice object , scheelt schrijven, hoef je niet steeds de selectie opnieuw te maken
         // eerste de dobbelsteen image hiden, dan daarna de nr van de dice vast plakken aan de image en deze tonen
         var diceDOM = document.querySelector('.dice');
+        var diceDOM2 = document.querySelector('.dice2');
         diceDOM.style.display = 'block';
+        diceDOM2.style.display = 'block';
         diceDOM.src = 'dice-' + dice + '.png';
+        diceDOM2.src = 'dice-' + dice2 + '.png';
 
         //3. update the round score IF the rolled number was not a 1 or the previous dice was not 6
 
@@ -85,7 +89,21 @@ document.querySelector('.btn-roll').addEventListener('click', function () {
         (*hint* always store the previous roll in a seperate variable.)
 
         */
-        if (dice === 6 && lastDice === 6) {
+
+        if (dice !== 1 && dice2 !== 1) {
+            // add the score
+            // roundscore + dice
+            roundScore += dice + dice2;
+            document.querySelector('#current-' + activePlayer).textContent = roundScore;
+        } else {
+            //next player
+            nextPlayer();
+
+        }
+
+
+        /*
+        if (dice === 6 && dice2 === 6 && lastDice === 6) {
             scores[activePlayer] = 0;
             roundScore[activePlayer] = 0;
             //also UI op 0 zetten!
@@ -96,7 +114,8 @@ document.querySelector('.btn-roll').addEventListener('click', function () {
         } else if (dice !== 1) {
             // add the score
             // roundscore + dice
-            roundScore += dice;
+            roundScore = roundScore + dice + dice2;
+            console.log(roundScore);
             document.querySelector('#current-' + activePlayer).textContent = roundScore;
 
         } else {
@@ -107,6 +126,7 @@ document.querySelector('.btn-roll').addEventListener('click', function () {
         }
         //reset the previousDice to 0
         lastDice = dice;
+        */
     }
 });
 
@@ -122,13 +142,15 @@ document.querySelector('.btn-hold').addEventListener('click', function () {
 
         document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
 
-        // check if the player won the game (default is 100 is a win)
 
+        // input value of new winning score:
         var input = document.getElementById('newscore').value;
 
         // console.log(winningScore);
 
-        // if undefined, 0, null or "" are COERCED to false
+        // check if the player won the game (default is 100 or use the input is a win) 
+
+        // if the winning score is: undefined, 0, null or "" are COERCED to false
         // if winning score is empty use the default 100
         if (input) {
             winningScore = input;
@@ -139,6 +161,7 @@ document.querySelector('.btn-hold').addEventListener('click', function () {
         if (scores[activePlayer] >= winningScore) {
             document.querySelector('#name-' + activePlayer).textContent = 'WINNER!';
             document.querySelector('.dice').style.display = 'none';
+            document.querySelector('.dice2').style.display = 'none';
             document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
             document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
             gamePlaying = false;
@@ -184,6 +207,7 @@ function nextPlayer() {
     document.querySelector('.player-1-panel').classList.toggle('active');
     //haal de dobbelsteen plaatje weg
     document.querySelector('.dice').style.display = 'none';
+    document.querySelector('.dice2').style.display = 'none';
 
 };
 
@@ -210,6 +234,7 @@ function initGame() {
 
 
 
+    document.querySelector('.dice2').style.display = 'none';
     document.querySelector('.dice').style.display = 'none';
 
     // getElementById en querySelector doen het zelfde maar getElementById is sneller.

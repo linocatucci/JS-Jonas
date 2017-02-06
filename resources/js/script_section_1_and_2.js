@@ -214,6 +214,7 @@ john.shift();
 //alert(john.indexOf('Catucci')) returns 1
 
 //checks the array if the word teacher is in the array! Nice!!
+// if the element is NOT in the array the method returns -1
 if (john.indexOf('teacher') === -1) {
     console.log('John is not a teacher');
 }
@@ -537,3 +538,5 @@ snacks.push('salami');
 snacks.unshift('olijven');
 console.log(snacks.length);
 console.log(snacks);
+
+console.log(snacks.indexOf('salami'));
