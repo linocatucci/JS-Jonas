@@ -85,13 +85,25 @@ document.querySelector('.btn-hold').addEventListener('click', function () {
 
     document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
 
-
-    // 2. als je hold clicked dan moet je de activeplayer veranderen
-    // de roundscore moet op 0 gezet worden en volgende speler
-
-    nextPlayer();
-
     // check if the player won the game (above 100 is a win)
+
+    //stop game with the game 
+    if (scores[activePlayer] >= 20) {
+        document.querySelector('#name-' + activePlayer).textContent = 'WINNER!';
+        document.querySelector('.dice').style.display = 'none';
+        document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
+        document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
+
+
+    } else {
+
+        //  als je hold clicked dan moet je de activeplayer veranderen
+        // de roundscore moet op 0 gezet worden en volgende speler
+
+        nextPlayer();
+
+    }
+
 });
 
 function nextPlayer() {
