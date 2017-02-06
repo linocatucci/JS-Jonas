@@ -9,11 +9,10 @@ GAME RULES:
 
 */
 
-var scores, roundScore, activePlayer;
+var scores, roundScore, activePlayer, gamePlaying;
 
-scores = [0, 0]; // 2 getallen
-roundScore = 0;
-activePlayer = 0; //0 is first player, 1 is second player
+// initialize game
+initGame();
 
 
 //console.log(dice);
@@ -34,6 +33,9 @@ activePlayer = 0; //0 is first player, 1 is second player
 // var x = document.querySelector('#score-0').textContent;
 // console.log(x);
 // to show that you can hide and show an html element via the css property: display : none;
+
+// below code is in the initGame fucntion
+/*
 document.querySelector('.dice').style.display = 'none';
 
 // getElementById en querySelector doen het zelfde maar getElementById is sneller.
@@ -41,67 +43,70 @@ document.querySelector('.dice').style.display = 'none';
 console.log(document.querySelector('#score-0').textContent);
 console.log(document.getElementById('score-0').textContent);
 */
-
+/*
 document.getElementById('score-0').textContent = '0';
 document.getElementById('score-1').textContent = '0';
 document.getElementById('current-0').textContent = '0';
 document.getElementById('current-0').textContent = '0';
+*/
 
 
 document.querySelector('.btn-roll').addEventListener('click', function () {
 
-    // 1. random number
-    var dice = Math.floor(Math.random() * 6) + 1;
+    if (gamePlaying) {
+        // 1. random number
+        var dice = Math.floor(Math.random() * 6) + 1;
 
-    // 2. display the result of 1.
-    // variable of the dice object , scheelt schrijven, hoef je niet steeds de selectie opnieuw te maken
-    // eerste de dobbelsteen image hiden, dan daarna de nr van de dice vast plakken aan de image en deze tonen
-    var diceDOM = document.querySelector('.dice');
-    diceDOM.style.display = 'block';
-    diceDOM.src = 'dice-' + dice + '.png';
+        // 2. display the result of 1.
+        // variable of the dice object , scheelt schrijven, hoef je niet steeds de selectie opnieuw te maken
+        // eerste de dobbelsteen image hiden, dan daarna de nr van de dice vast plakken aan de image en deze tonen
+        var diceDOM = document.querySelector('.dice');
+        diceDOM.style.display = 'block';
+        diceDOM.src = 'dice-' + dice + '.png';
 
-    //3. update the round score IF the rolled number was not a 1
+        //3. update the round score IF the rolled number was not a 1
 
-    if (dice !== 1) {
-        // add the score
-        // roundscore + dice
-        roundScore += dice;
-        document.querySelector('#current-' + activePlayer).textContent = roundScore;
-    } else {
-        //next player
-        nextPlayer();
+        if (dice !== 1) {
+            // add the score
+            // roundscore + dice
+            roundScore += dice;
+            document.querySelector('#current-' + activePlayer).textContent = roundScore;
+        } else {
+            //next player
+            nextPlayer();
 
+        }
     }
-
 });
 
 document.querySelector('.btn-hold').addEventListener('click', function () {
 
-    // 1. roundscore moet opgeslagen worden in score voor de juiste player [0], [1] in de array
+    if (gamePlaying) {
 
-    scores[activePlayer] += roundScore;
+        // 1. roundscore moet opgeslagen worden in score voor de juiste player [0], [1] in de array
 
-    // update the UI 
+        scores[activePlayer] += roundScore;
 
-    document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
+        // update the UI 
 
-    // check if the player won the game (above 100 is a win)
+        document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
 
-    //stop game with the game 
-    if (scores[activePlayer] >= 20) {
-        document.querySelector('#name-' + activePlayer).textContent = 'WINNER!';
-        document.querySelector('.dice').style.display = 'none';
-        document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
-        document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
+        // check if the player won the game (above 100 is a win)
 
+        if (scores[activePlayer] >= 100) {
+            document.querySelector('#name-' + activePlayer).textContent = 'WINNER!';
+            document.querySelector('.dice').style.display = 'none';
+            document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
+            document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
+            gamePlaying = false;
 
-    } else {
+        } else {
 
-        //  als je hold clicked dan moet je de activeplayer veranderen
-        // de roundscore moet op 0 gezet worden en volgende speler
+            //  als je hold clicked dan moet je de activeplayer veranderen
+            // de roundscore moet op 0 gezet worden en volgende speler
 
-        nextPlayer();
-
+            nextPlayer();
+        }
     }
 
 });
@@ -138,3 +143,45 @@ function nextPlayer() {
     document.querySelector('.dice').style.display = 'none';
 
 };
+
+
+// instead of creating an anonymous function, you can call the initGame function
+// don't use the () after initGame otherwise the function will be call right away
+document.querySelector('.btn-new').addEventListener('click', initGame);
+
+function initGame() {
+
+    scores = [0, 0]; // 2 getallen
+    roundScore = 0;
+    activePlayer = 0; //0 is first player, 1 is second player
+    // reset the players scores, activeplayer and roundscoore:
+
+    // state variable gamePlaying
+    gamePlaying = true;
+
+    // reset the names of the players to Player 1 and Player 2
+
+    document.getElementById('name-0').textContent = 'Player 1';
+    document.getElementById('name-1').textContent = 'Player 2';
+
+
+
+    document.querySelector('.dice').style.display = 'none';
+
+    // getElementById en querySelector doen het zelfde maar getElementById is sneller.
+    /*
+    console.log(document.querySelector('#score-0').textContent);
+    console.log(document.getElementById('score-0').textContent);
+    */
+
+    document.getElementById('score-0').textContent = '0';
+    document.getElementById('score-1').textContent = '0';
+    document.getElementById('current-0').textContent = '0';
+    document.getElementById('current-0').textContent = '0';
+    document.querySelector('.player-0-panel').classList.remove('winner');
+    document.querySelector('.player-1-panel').classList.remove('winner');
+    document.querySelector('.player-0-panel').classList.remove('active');
+    document.querySelector('.player-1-panel').classList.remove('active');
+    // first remove the active player class and then add it. Other wise you will have 2 active classes added.
+    document.querySelector('.player-0-panel').classList.add('active');
+}
