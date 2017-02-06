@@ -1,13 +1,27 @@
 /*
 GAME RULES:
+
 - The game has 2 players, playing in rounds
 - In each turn, a player rolls a dice as many times as he whishes. Each result get added to his ROUND score
 - BUT, if the player rolls a 1, all his ROUND score gets lost. After that, it's the next player's turn
 - The player can choose to 'Hold', which means that his ROUND score gets added to his GLBAL score. After that, it's the next player's turn
 - The first player to reach 100 points on GLOBAL score wins the game
+
+3 coding challanges:
+
+1. player looses his entire score (current and score) when he rolls 6 in a row. 
+and the next players turn.
+(*hint* always store the previous roll in a seperate variable.)
+
+2. add an input field to the HTML where the players can set the winning score, to that they can change the predefined score of 100.
+(*hint* you can read that value with the .value property in javascript. this is a good opportunity to google to figure this out. :))
+
+3. add another dice to the game, so that there are 2 dices now. The player looses his current score when one of them is a 1.
+(*hint* you will need CSS to position the second dice, so take a look at the CSS code for the first dice.)
+
 */
 
-var scores, roundScore, activePlayer, gamePlaying;
+var scores, roundScore, lastDice, activePlayer, gamePlaying, winningScore;
 
 // initialize game
 initGame();
@@ -35,6 +49,7 @@ initGame();
 // below code is in the initGame fucntion
 /*
 document.querySelector('.dice').style.display = 'none';
+
 // getElementById en querySelector doen het zelfde maar getElementById is sneller.
 /*
 console.log(document.querySelector('#score-0').textContent);
@@ -61,18 +76,37 @@ document.querySelector('.btn-roll').addEventListener('click', function () {
         diceDOM.style.display = 'block';
         diceDOM.src = 'dice-' + dice + '.png';
 
-        //3. update the round score IF the rolled number was not a 1
+        //3. update the round score IF the rolled number was not a 1 or the previous dice was not 6
 
-        if (dice !== 1) {
+        // coding challange:
+        /*
+        1. player looses his entire score (current and score) when he rolls 6 in a row. 
+        and the next players turn.
+        (*hint* always store the previous roll in a seperate variable.)
+
+        */
+        if (dice === 6 && lastDice === 6) {
+            scores[activePlayer] = 0;
+            roundScore[activePlayer] = 0;
+            //also UI op 0 zetten!
+            document.querySelector('#score-' + activePlayer).textContent = 0;
+            //next player
+            nextPlayer();
+
+        } else if (dice !== 1) {
             // add the score
             // roundscore + dice
             roundScore += dice;
             document.querySelector('#current-' + activePlayer).textContent = roundScore;
+
         } else {
+            roundScore[activePlayer] = 0;
             //next player
             nextPlayer();
 
         }
+        //reset the previousDice to 0
+        lastDice = dice;
     }
 });
 
@@ -88,9 +122,21 @@ document.querySelector('.btn-hold').addEventListener('click', function () {
 
         document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
 
-        // check if the player won the game (above 100 is a win)
+        // check if the player won the game (default is 100 is a win)
 
-        if (scores[activePlayer] >= 100) {
+        var input = document.getElementById('newscore').value;
+
+        // console.log(winningScore);
+
+        // if undefined, 0, null or "" are COERCED to false
+        // if winning score is empty use the default 100
+        if (input) {
+            winningScore = input;
+        } else {
+            winningScore = 100;
+        };
+
+        if (scores[activePlayer] >= winningScore) {
             document.querySelector('#name-' + activePlayer).textContent = 'WINNER!';
             document.querySelector('.dice').style.display = 'none';
             document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
@@ -151,6 +197,7 @@ function initGame() {
     scores = [0, 0]; // 2 getallen
     roundScore = 0;
     activePlayer = 0; //0 is first player, 1 is second player
+    lastDice = 0;
     // reset the players scores, activeplayer and roundscoore:
 
     // state variable gamePlaying
