@@ -74,6 +74,8 @@ console.log(Opel_Astra.calculateYearlyCost());
 
 
 // Object.create, another way to create an object.
+// function construction is used more, so this type we
+// will use in the course.
 
 var personProto = {
     calculateAge: function () {
