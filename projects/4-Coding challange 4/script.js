@@ -46,3 +46,14 @@ var q3 = new Question('What is the best IDE for Javascript', ['Brackets', 'Atom'
 // store the questions in an array
 
 var questions = [q1, q2, q3];
+
+// 4. select one random question and log it on the console, together with the possible answers (each question should have a number (hint: write a method for the question object for this task)).
+
+Question.prototype.randomQuestion = function() {
+    var randomNR = Math.round((Math.random() * 2));
+    console.log(randomNR);
+    console.log(questions[randomNR].question);
+    console.log(questions[randomNR].answers);
+};
+
+q1.randomQuestion(questions);
