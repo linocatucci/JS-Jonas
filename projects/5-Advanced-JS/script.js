@@ -88,6 +88,8 @@ function arrayCalc(arr, fn) {
     var arrRes = [];
     for (var i = 0; i < arr.length; i++) {
         arrRes.push(fn(arr[i]));
+        //arrRes.push(calculateAge(2005)) dit staat hierboven
+        // of te wel arrRes.push(11)
     }
     return arrRes;
 }
@@ -118,3 +120,59 @@ console.log(ages);
 var fullAges = arrayCalc(ages, fullAge);
 var rates = arrayCalc(ages, maxHearthRate);
 console.log(rates);
+
+// lecture: functions returning functions
+// let's create a function which create interview quesitons
+// for each job we will return a string with the usersname as input.
+
+function interviewQuestion(job) {
+    if (job === 'designer') {
+        return function(name) {
+            console.log(name + ' can you please explain what ux deisgn is');
+        };
+    } else if (job === 'teacher') {
+        return function(name) {
+            console.log(name + ' what do you teach');
+        };
+    } else {
+        return function(name) {
+            console.log('Hello ' + name + ' what do you do?');
+        }
+    }
+}
+
+// the teacherQuestion variable will return the function:
+/* function(name) {
+            console.log(name + ' can you please explain what ux deisgn is');
+        } */
+
+var teacherQuestion = interviewQuestion('teacher');
+var designerQuestion = interviewQuestion('designer');
+
+teacherQuestion('John');
+designerQuestion('Jane');
+interviewQuestion('teacher')('Mark');
+
+function game() {
+    var score = Math.random() * 10;
+    console.log(score >= 5);
+}
+game();
+
+(function(goodLuck) {
+    var score = Math.random() * 10;
+    console.log(score >= 5 - goodLuck);
+})(5);
+
+// closures
+
+function retirement(retirementAge) {
+    var a = ' years for retirement';
+    return function(yearOfBirth) {
+        var age = 2016 - yearOfBirth;
+        console.log((retirementAge - age) + a);
+    }
+}
+
+var retirementNL = retirement(65);
+retirementNL(1971);
