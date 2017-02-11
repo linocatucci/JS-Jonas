@@ -19,6 +19,7 @@ function Person(name, yearOfBirth, job) {
 
 // adding methods and functions to the function constructor prototype property
 // prototype property of our function constructor
+
 Person.prototype.calculateAge = function () {
     console.log(2016 - this.yearOfBirth);
 };
@@ -156,15 +157,15 @@ console.log(rates);
 
 function interviewQuestion(job) {
     if (job === 'designer') {
-        return function(name) {
+        return function (name) {
             console.log(name + ' can you please explain what UX design is? ');
         }
     } else if (job === 'teacher') {
-        return function(name) {
+        return function (name) {
             console.log('what subject do you teach? ' + name);
         }
     } else {
-        return function(name) {
+        return function (name) {
             console.log('hello what do you do? ');
         }
     }
@@ -189,15 +190,15 @@ designerQuestion('Floor');
 
 function welkeSchool(kleur) {
     if (kleur === 'wit') {
-        return function(naam) {
+        return function (naam) {
             console.log(naam + ' Jij kunt beter naar Saenredam school gaan');
         }
     } else if (kleur === 'gemengd') {
-        return function(naam) {
+        return function (naam) {
             console.log(naam + ' Jij kunt beter naar Compaan gaan');
         }
     } else {
-        return function(naam) {
+        return function (naam) {
             console.log(naam + ' Jij past beter bij Poelenburg');
         }
     }
@@ -230,13 +231,14 @@ game();
 // trick the javascript parser door in () te "wrappen"
 // dan denkt javascript dat het een expression is en niet een declaration of the function.
 // data privacy here!
-(function() {
+
+(function () {
     var score = Math.random() * 10;
     console.log(score >= 5);
 })();
 
 
-(function(goodluck) {
+(function (goodluck) {
     var score = Math.random() * 10;
     console.log(score >= 5 - goodluck);
     console.log(score);
@@ -246,11 +248,12 @@ game();
 
 function retirement(retirementAge) {
     var a = ' years left until retirement';
-    return function(yearOfBirth) {
+    return function (yearOfBirth) {
         var age = 2016 - yearOfBirth;
         console.log((retirementAge - age) + a);
     };
 }
+
 // maak een var met functie van het eerste deel
 // daarna die variabele aanroepen met de input parametern van de 2e functie (yearOfBirth)
 var retirementUS = retirement(66);
@@ -283,7 +286,7 @@ function interviewQuestion(job) {
 */
 
 function interviewQuestion(job) {
-    return function(name) {
+    return function (name) {
         if (job === 'teacher') {
             console.log(name + ' You should be teacher');
         } else if (job === 'designer') {
