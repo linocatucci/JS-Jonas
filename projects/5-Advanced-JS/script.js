@@ -1,5 +1,5 @@
 // advanced javascript again.
-/*
+
 console.log('test with vs code');
 
 // constructor acts like a blueprint.
@@ -12,6 +12,8 @@ var john = {
     yearOfBirth: 1990,
     job: 'teacher'
 };
+
+console.log(john.yearOfBirth);
 
 // new way: via function constructor 
 // met hoofdletter bij constructors!
@@ -42,24 +44,26 @@ mark.calculateAge();
 // primitives krijgen een copy van de waarde, bij objecten wordt er een
 // gemaakt.
 
+/*
 var a = 23;
-var b = a;
+var b = a; // copy van a. Geen referentie!
 a = 46;
-console.log(a);
-console.log(b);
+console.log('dit is primitive a ' + a);
+console.log('dit is de copy van a die in b is gezet ' + b);
 
 var obj1 = {
     name: 'john',
     age: 26
 };
-
+// referentie dus wanneer er 1 verandert dan ook de ander.
 var obj2 = obj1;
 obj1.age = 30;
 console.log(obj1.age);
 console.log(obj2.age);
+
 */
 
-// functions
+// functions!
 
 var age = 27;
 var obj = {
@@ -70,15 +74,20 @@ var obj = {
 function change(a, b) {
     a = 30;
     b.city = 'San Francisco';
-    console.log(a);
+    console.log('dit is variable a ' + a);
+    console.log('city van het object ' + b.city)
 };
 
 // de primitive wordt als copy in de functie gezet, het object als referentie
+// it will never effect de variabel on the outside (age)
 // vandaar dat age 27 blijft en de city van het object verandert.
 
 change(age, obj);
-console.log(age);
-console.log(obj.city);
+console.log('dit is variable a ' + age);
+console.log('city van het object ' + obj.city)
+
+//console.log('dit is de age variabele ' + age);
+//console.log(obj.city);
 
 // passing functions as arguments
 
@@ -145,7 +154,7 @@ function interviewQuestion(job) {
 /* function(name) {
             console.log(name + ' can you please explain what ux deisgn is');
         } */
-
+/*
 var teacherQuestion = interviewQuestion('teacher');
 var designerQuestion = interviewQuestion('designer');
 
@@ -176,3 +185,4 @@ function retirement(retirementAge) {
 
 var retirementNL = retirement(65);
 retirementNL(1971);
+*/

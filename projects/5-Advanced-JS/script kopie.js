@@ -1,5 +1,3 @@
-/*
-
 // function constructor
 
 // traditional
@@ -20,7 +18,7 @@ function Person(name, yearOfBirth, job) {
 // adding methods and functions to the function constructor prototype property
 // prototype property of our function constructor
 
-Person.prototype.calculateAge = function () {
+Person.prototype.calculateAge = function() {
     console.log(2016 - this.yearOfBirth);
 };
 
@@ -52,7 +50,7 @@ function Car(brand, type, engine, PK, color, price) {
     this.price = price;
 };
 
-Car.prototype.calculateYearlyCost = function () {
+Car.prototype.calculateYearlyCost = function() {
     console.log((this.price / 100 * 21) * 0.4);
 };
 
@@ -71,8 +69,8 @@ console.log(Opel_Astra)
 console.log(Opel_Astra.PK + '  ' + Opel_Astra.color + ' ' + Opel_Astra.engine + ' ' + ' total cost per year: ' + Opel_Astra.calculateYearlyCost());
 
 console.log(Opel_Astra.calculateYearlyCost());
-*/
 
+/*
 
 // Object.create, another way to create an object.
 // function construction is used more, so this type we
@@ -110,7 +108,7 @@ var jane = Object.create(personProto, {
 */
 
 // lecture: functions: passing functions as arguments and use of callback functions
-
+/*
 var years = [1990, 2005, 1971, 2006, 1975, 1965];
 
 // generic function which loops over an arry and an input of a function
@@ -285,6 +283,8 @@ function interviewQuestion(job) {
 };
 */
 
+/*
+
 function interviewQuestion(job) {
     return function (name) {
         if (job === 'teacher') {
@@ -298,3 +298,5 @@ function interviewQuestion(job) {
     };
 }
 interviewQuestion('teacher')('John');
+
+*/

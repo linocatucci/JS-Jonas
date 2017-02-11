@@ -146,6 +146,7 @@ EXPERT LEVEL QUIZ:
 
         if (inputAnswer !== 'exit') {
             questions[randomNR].checkAnswer(parseInt(inputAnswer));
+            // next question only when "exit" has not been typed.
             nextQuestion();
         }
     }
