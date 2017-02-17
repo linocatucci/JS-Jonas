@@ -27,22 +27,20 @@ yearsUntilRetirement('suzan', 1972);
 yearsUntilRetirement('mary', 1940);
 
 function calculateYearlyInterest(savingsAmount) {
-    var interest = 3 //percent
+    var interest = 3; //percent
     var interestMoney = (savingsAmount / 100) * interest;
+    console.log('geld ' + interestMoney);
     return interestMoney;
 }
 
-var SuzanInterest = calculateYearlyInterest(10000);
-console.log(SuzanInterest);
+calculateYearlyInterest(10000);
 
 function calculatePersonInterest(naam, savingAmount) {
-    var interestAmount = calculateYearlyInterest(savingAmount)
-    return interestAmount;
-    console.log(naam + ' ' + test);
+    var interestAmount = calculateYearlyInterest(savingAmount);
+    console.log(naam + ' ' + interestAmount);
 };
 
-var test = calculatePersonInterest(suzan, 30000);
-console.log(test);
+calculatePersonInterest('suzan', 30000);
 
 // traditional
 var john = {
