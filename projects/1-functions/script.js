@@ -29,7 +29,7 @@ yearsUntilRetirement('mary', 1940);
 function calculateYearlyInterest(savingsAmount) {
     var interest = 3; //percent
     var interestMoney = (savingsAmount / 100) * interest;
-    console.log('geld ' + interestMoney);
+    console.log('rentegeld = ' + interestMoney);
     return interestMoney;
 }
 
@@ -37,10 +37,13 @@ calculateYearlyInterest(10000);
 
 function calculatePersonInterest(naam, savingAmount) {
     var interestAmount = calculateYearlyInterest(savingAmount);
-    console.log(naam + ' ' + interestAmount);
+    console.log(naam + ' krijgt ' + interestAmount + ' aan rente ');
 };
 
 calculatePersonInterest('suzan', 30000);
+
+// geefGetalToonFunctie
+// deze function retourneert een functie die een getal kan tonen
 
 // traditional
 var john = {
