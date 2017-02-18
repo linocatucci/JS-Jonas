@@ -7,9 +7,9 @@ function calculateAge(yearOfBirth) {
 
 console.log('lino is ' + calculateAge(1971));
 var suzan = calculateAge(1972);
-console.log('lino is ' + suzan);
+console.log('age of suzan is ' + suzan);
 var carolien = calculateAge(1975);
-console.log('lino is ' + carolien);
+console.log('age of carolien ' + carolien);
 
 function yearsUntilRetirement(name, year) {
     var age = calculateAge(year);
@@ -31,27 +31,150 @@ function calculateYearlyInterest(savingsAmount) {
     var interestMoney = (savingsAmount / 100) * interest;
     console.log('rentegeld = ' + interestMoney);
     return interestMoney;
-}
+};
 
-calculateYearlyInterest(10000);
+var schnitzel = calculateYearlyInterest(10000);
+console.log(schnitzel);
 
 function calculatePersonInterest(naam, savingAmount) {
     var interestAmount = calculateYearlyInterest(savingAmount);
     console.log(naam + ' krijgt ' + interestAmount + ' aan rente ');
 };
 
-calculatePersonInterest('suzan', 30000);
+calculatePersonInterest('suzan', 30000)
+
+function printName(name) {
+    console.log('print my name: ' + name);
+
+};
+printName('Julia');
+
 
 // geefGetalToonFunctie
 // deze function retourneert een functie die een getal kan tonen
 
+function geefGetalToonFunctie(getal) {
+
+}
+
+// arrays
+
+var names = ['john', 'jane', 'mark'];
+var years = [1970, 1971, 1972];
+console.log(names);
+console.log(years);
+
+names.push('rick');
+names.push('chick');
+console.log(names);
+
+var objectArray = [];
+
+var bookmark = {
+    siteName: 'google',
+    siteUrl: 'http://wwww.google.com'
+
+};
+
+var bookmark1 = {
+    siteName: 'facebook',
+    siteUrl: 'http://wwww.facebook.com'
+
+};
+console.log(bookmark);
+objectArray.push(bookmark);
+objectArray.push(bookmark1);
+console.log('dit is de object array');
+console.log(objectArray);
+
+function loopArray(array) {
+    for (var i = 0; i < array.length; i++) {
+        console.log(array[i].siteName + ': ' + array[i].siteUrl);
+        localStorage.setItem(array[i].siteName, array[i].siteUrl);
+    }
+}
+
+loopArray(objectArray);
+
 // traditional
+/* version 1.0
 var john = {
     name: 'John',
     yearOfBirth: 1990,
-    job: 'teacher'
+    job: 'teacher',
+    isMarried: false,
+    family: ['jane', 'mark', 'bob'],
+    calculateAge: function() {
+        return 2016 - this.yearOfBirth;
+    }
 };
 
+console.log(john.family[0]);
+//console.log(john.calculateAge(1990));
+console.log(john.calculateAge());
+var age = john.calculateAge();
+john.age = age;
+console.log(john);
+*/
+
+// version 2.0
+var john = {
+    name: 'John',
+    yearOfBirth: 1990,
+    job: 'teacher',
+    isMarried: false,
+    family: ['jane', 'mark', 'bob'],
+    calculateAge: function() {
+        this.age = 2016 - this.yearOfBirth;
+    }
+};
+john.calculateAge();
+console.log(john);
+
+// eigen objecten "oude" style:
+
+var leaseCar = {
+    brand: 'Opel',
+    type: 'Astra K',
+    engine: 'CDTI',
+    horsePower: 140,
+    color: 'blue',
+    yearOfMake: 2017,
+    leaseContract: 5,
+    calculateEndOfLeaseTerm: function() {
+        this.endContractyear = this.yearOfMake + this.leaseContract;
+    }
+};
+
+leaseCar.rimms = '17inch';
+
+console.log(leaseCar);
+leaseCar.calculateEndOfLeaseTerm();
+console.log(leaseCar);
+
+
+
+
+function Car(brand, type, engine, PK, color, price) {
+    this.brand = brand;
+    this.type = type;
+    this.engine = engine;
+    this.PK = PK;
+    this.color = color;
+    this.price = price;
+};
+
+Car.prototype.calculateYearlyCost = function() {
+    console.log((this.price / 100 * 21) * 0.4);
+};
+
+
+var Audi_4_Benz = new Car('audi', 'A4', 'TFSI', 140, 'Blue', 40000);
+var Audi_4_Diesel = new Car('audi', 'A4', 'TDI', 160, 'Black', 40000);
+var Opel_Astra = new Car('Opel', 'Astra', 'TDI', 140, 'Blue', 32000);
+
+
+/*
 // object function constructor is a pattern for a object blueprint
 
 function Person(name, yearOfBirth, job) {
