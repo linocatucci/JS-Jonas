@@ -1,5 +1,5 @@
 // module pattern is an IIFE and uses closures (returning a function or an object with a function)
-// module pattern secret is that it will return an object containing all the functions we would like
+// the module pattern secret is that it will return an object containing all the functions we would like
 // to be public and used by the outside
 
 // the budgetController is an iife which will return an object
@@ -23,10 +23,6 @@ var budgetController = (function() {
 var UIController = (function() {
 
     // some code
-
-    return {
-        //some code
-    }
 
 })();
 

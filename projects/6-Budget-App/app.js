@@ -25,7 +25,7 @@ var UIController = (function() {
     // return an object with methods and that will be assigned to the UIController
 
     return {
-        // method to return all of the 3 inputs from the UI
+        // method to return an object to return all of the 3 inputs from the UI, w
         getInput: function() {
             // returning an object because we need to return 3 values (type, desc, value)
             return {
@@ -36,7 +36,7 @@ var UIController = (function() {
                 value: document.querySelector(DOMStrings.inputValue).value
             };
         },
-
+        // to use the DOMStrings in the app controller we need to return them
         getDOMStrings: function() {
             return DOMStrings;
         }
@@ -48,6 +48,7 @@ var UIController = (function() {
 // GLOBAL APP CONTROLLER
 var controller = (function(budgetCtrl, UICtrl) {
 
+    // to use the DOMStrings from the UI controller
     var DOMStrings = UICtrl.getDOMStrings();
 
     var ctrlAddItem = function() {
@@ -55,8 +56,6 @@ var controller = (function(budgetCtrl, UICtrl) {
             // 1. get the fields input data
             var input = UICtrl.getInput();
             console.log(input);
-
-
 
             // 2. add the item to the budgetController
 
@@ -68,7 +67,7 @@ var controller = (function(budgetCtrl, UICtrl) {
         }
         // when the button is clicked
         // the function after the click is an anonymous funciton, now it's the ctrlAddItem function which will be
-        // executed after the click button
+        // executed after the click button. It's not good practice to add all the logic right after the anonymous function
     document.querySelector(DOMStrings.inputBtn).addEventListener('click', ctrlAddItem);
 
     // key press event listner, on the global document that's why not a class is selected.
