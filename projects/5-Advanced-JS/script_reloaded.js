@@ -101,8 +101,135 @@ console.log(olderThan18);
 var yearsTot40 = arrayCalc(ages, yearsUntil40);
 console.log(arrayCalc(ages, yearsUntil40));
 
+
 // FUNCTIONS RETURNING FUCTIONS
+//
+
+// a function returning 
+
+function interviewQuestion(job) {
+    if (job === 'designer') {
+        return function(name) {
+            console.log(name + ' ,what is UX design?');
+        };
+    } else if (job === 'teacher') {
+        return function(name) {
+            console.log('what subject do you teach ' + name);
+        };
+    }
+}
+
+var teacherQuestion = interviewQuestion('teacher');
+teacherQuestion('mark');
+
+var designerQuestion = interviewQuestion('designer');
+designerQuestion('John');
+
 // 1. deze function retourneert een functie die een getal kan tonen
+
+function geefGetalToonFunctie(getal) {
+    return function(getal) {
+        console.log(getal + ' is ingetoetst');
+    }
+};
+
+var geefMijEenGetal = geefGetalToonFunctie();
+geefMijEenGetal(6);
+
+/*
+Wat ik in zo’n geval altijd doe is “uitkleden” tot de basis, zie bijlage.
+
+*/
+
+// 1. deze function retourneert een functie die een getal kan tonen
+function geefGetalToonFunctie() {
+    return function(getal) {
+        console.log(getal);
+    }
+}
+// 2. deze variable bevat nu de functie die een getal kan tonen
+var getalToonFunctie = geefGetalToonFunctie()
+
+// 3. de functie die een getal kan tonen wordt nu aangeroepen (met een getal)
+getalToonFunctie(5)
+
+//1. deze functie geeft een welomst boodschap terug, obv het moment van de dag met de naam (input)
+
+function geefEenHalloTekstTerug(momentVanDeDag) {
+    return function(naam) {
+        console.log('Goede' + momentVanDeDag + ' ' + naam);
+    }
+};
+
+var ochtendGroet = geefEenHalloTekstTerug('ochtend');
+ochtendGroet('Lino');
+
+// IIFE , immediately invoked function expressions
+// old style nog an iife
+function game() {
+    var score = Math.random() * 10;
+    console.log(score >= 5);
+}
+game();
+
+(function() {
+    var score = Math.random() * 10;
+    console.log(score >= 5);
+})();
+
+(function(goodluck) {
+    var score = Math.random() * 10;
+    console.log(score >= 5) - goodluck;
+})(5);
+
+// closures
+// a function returns a funciton how many years we have left until retirement
+function retirement(retirementAge) {
+    var a = ' years left until retirement';
+    return function(yearOfBirth) {
+        var age = 2016 - yearOfBirth;
+        console.log((retirementAge - age) + a);
+    }
+};
+
+var retirementNL = retirement(65);
+retirementNL(1971); // = eigenlijk dit: return function(yearOfBirth) {
+// kan ook zo
+retirement(65)(1971);
+
+var retirementDE = retirement(66);
+retirementDE(1981); // = eigenlijk dit: return function(yearOfBirth) {
+
+// rewrite interviewQuestion as a closer
+/*
+function interviewQuestion(job) {
+    if (job === 'designer') {
+        return function(name) {
+            console.log(name + ' ,what is UX design?');
+        };
+    } else if (job === 'teacher') {
+        return function(name) {
+            console.log('what subject do you teach ' + name);
+        };
+    }
+}
+*/
+function interviewQuestion(job) {
+    return function(name) {
+        if (job === 'designer') {
+            console.log(name + ' ,what is UX design?');
+        } else if (job === 'teacher') {
+            console.log('closure functie: what subject do you teach ' + name);
+        }
+    }
+};
+
+var teacherQuestion2 = interviewQuestion('teacher');
+teacherQuestion2('Lino');
+
+
+
+
 
 
 
