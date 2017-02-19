@@ -52,24 +52,23 @@ var controller = (function(budgetCtrl, UICtrl) {
 
     var ctrlAddItem = function() {
 
-        // 1. get the fields input data
-        var input = UICtrl.getInput();
-        console.log(input);
+            // 1. get the fields input data
+            var input = UICtrl.getInput();
+            console.log(input);
 
 
 
-        // 2. add the item to the budgetController
+            // 2. add the item to the budgetController
 
-        // 3. add the new item to the UIController
+            // 3. add the new item to the UIController
 
-        // 4. calculate the budget
+            // 4. calculate the budget
 
-        // 5. display the new budget on the UI
-    }
-
-    // when the button is clicked
-    // the function after the click is an anonymous funciton, now it's the ctrlAddItem function which will be
-    // executed after the click button
+            // 5. display the new budget on the UI
+        }
+        // when the button is clicked
+        // the function after the click is an anonymous funciton, now it's the ctrlAddItem function which will be
+        // executed after the click button
     document.querySelector(DOMStrings.inputBtn).addEventListener('click', ctrlAddItem);
 
     // key press event listner, on the global document that's why not a class is selected.
@@ -81,6 +80,4 @@ var controller = (function(budgetCtrl, UICtrl) {
             ctrlAddItem();
         }
     });
-
-
 })(budgetController, UIController);
