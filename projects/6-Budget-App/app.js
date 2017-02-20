@@ -5,30 +5,29 @@
 // the budgetController is an iife which will return an object
 var budgetController = (function() {
 
-    // objects for the expenses and incomes
+    // objects for the expenses 
     var Expense = function(id, description, value) {
         this.id = id;
         this.description = description;
         this.value = value;
     };
+    // objects for the incomes
     var Income = function(id, description, value) {
         this.id = id;
         this.description = description;
         this.value = value;
     };
     // object to store the total incomes and expenses
-
     var data = {
-        allItems {
+        allItems: {
             exp: [],
             inc: []
         },
-        totals {
+        totals: {
             exp: 0,
             inc: 0
         }
     };
-
 })();
 
 // UICONTROLLER
