@@ -227,15 +227,6 @@ function interviewQuestion(job) {
 var teacherQuestion2 = interviewQuestion('teacher');
 teacherQuestion2('Lino');
 
-// test
-
-var xx = 23;
-
-var add = function(a) {
-    return xx + a;
-}
-
-console.log(add(5));
 
 
 
@@ -260,6 +251,9 @@ console.log(add(5));
 
 
 
+
+
+/*
 
 var years = [1990, 1956, 1937, 1975, 1989, 2005];
 
@@ -301,7 +295,7 @@ console.log(fullAges);
 console.log(rates);
 
 
-// simple function without an IIFE
+// simple function withour an IIFE
 
 function game() {
     var randomNR = Math.random() * 10;
@@ -345,7 +339,7 @@ game();
 // we stored the returned function in de variabele retirementNL 
 // dus zowel de var retiremenAge van 65 zit in de retirementNL als ook de gehele anonymous function
 
-
+/*
 function retirement(retiremenAge) {
     return function(yearOfBirth) {
         var a = 'years left until retirement ';
@@ -353,7 +347,8 @@ function retirement(retiremenAge) {
         console.log((retiremenAge - age) + a);
     }
 }
-
+*/
+/*
 function retirement(retiremenAge) {
     return function(yearOfBirth) {
         var tekst = ' jaren te gaan tot pensioen ';
@@ -365,3 +360,4 @@ var retirementNL = retirement(65);
 retirementNL(1971);
 //of
 retirement(65)(1971);
+*/

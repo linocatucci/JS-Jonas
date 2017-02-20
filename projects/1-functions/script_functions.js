@@ -468,3 +468,13 @@ function interviewQuestion(job) {
 interviewQuestion('teacher')('John');
 
 */
+
+// test
+
+var xx = 23;
+
+var add = function(a) {
+    return xx + a;
+}
+
+console.log(add(5));

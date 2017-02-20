@@ -20,17 +20,16 @@ var UIController = (function() {
         inputBtn: '.add__btn'
     }
 
-
     // public method to use in other modules
     // return an object with methods and that will be assigned to the UIController
-
     return {
-        // method to return an object to return all of the 3 inputs from the UI, w
+        // method getInput to return an object to return all of the 3 inputs from the UI,
         getInput: function() {
             // returning an object because we need to return 3 values (type, desc, value)
             return {
                 // here will we read the data from the UI
                 // first the type (+ of -)
+                // key:value pair
                 type: document.querySelector(DOMStrings.inputType).value, // will be (inc(+) or exp(-)
                 description: document.querySelector(DOMStrings.inputDescription).value,
                 value: document.querySelector(DOMStrings.inputValue).value
@@ -40,43 +39,54 @@ var UIController = (function() {
         getDOMStrings: function() {
             return DOMStrings;
         }
-
     };
-
 })();
 
 // GLOBAL APP CONTROLLER
 var controller = (function(budgetCtrl, UICtrl) {
 
-    // to use the DOMStrings from the UI controller
-    var DOMStrings = UICtrl.getDOMStrings();
+    // initialize function
+    var setUpEventListners = function() {
 
-    var ctrlAddItem = function() {
+        // to use the DOMStrings from the UI controller
+        var DOMStrings = UICtrl.getDOMStrings();
 
-            // 1. get the fields input data
-            var input = UICtrl.getInput();
-            console.log(input);
-
-            // 2. add the item to the budgetController
-
-            // 3. add the new item to the UIController
-
-            // 4. calculate the budget
-
-            // 5. display the new budget on the UI
-        }
         // when the button is clicked
         // the function after the click is an anonymous funciton, now it's the ctrlAddItem function which will be
         // executed after the click button. It's not good practice to add all the logic right after the anonymous function
-    document.querySelector(DOMStrings.inputBtn).addEventListener('click', ctrlAddItem);
+        document.querySelector(DOMStrings.inputBtn).addEventListener('click', ctrlAddItem);
 
-    // key press event listner, on the global document that's why not a class is selected.
-    // the function after the click is an anonymous funciton, we will now pass an argument into the function
-    // the argument will be called event
-    document.addEventListener('keypress', function(event) {
+        // key press event listner, on the global document that's why not a class is selected.
+        // the function after the click is an anonymous funciton, we will now pass an argument into the function
+        // the argument will be called event
+        document.addEventListener('keypress', function(event) {
 
-        if (event.keyCode === 13 || event.which === 13) {
-            ctrlAddItem();
+            if (event.keyCode === 13 || event.which === 13) {
+                ctrlAddItem();
+            }
+        });
+    };
+    ctrlAddItem = function() {
+
+        // 1. get the Object fields input data back from the UIController.
+        var input = UICtrl.getInput();
+        console.log(input);
+
+        // 2. add the item (expense or income) to the budgetController
+
+        // 3. add the new item to the UIController
+
+        // 4. calculate the budget
+
+        // 5. display the new budget on the UI
+    };
+
+    return {
+        init: function() {
+            console.log('Application has started!');
+            setUpEventListners();
         }
-    });
+    }
 })(budgetController, UIController);
+
+controller.init();
