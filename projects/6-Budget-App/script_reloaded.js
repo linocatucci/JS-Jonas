@@ -361,3 +361,22 @@ retirementNL(1971);
 //of
 retirement(65)(1971);
 */
+
+var data = {
+    allItems: {
+        exp: [],
+        inc: []
+    },
+    totals: {
+        exp: 0,
+        inc: 0
+    }
+};
+
+var newItem = 'lino';
+//data.allItems[exp].push(newItem);
+// data.allItems.exp.push(newItem);
+data.allItems.exp.push(newItem);
+console.log(data.allItems.exp[0]);
+//data.allItems[type][data.allItems[type].length - 1].id
+console.log(data.allItems.exp.length);

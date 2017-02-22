@@ -45,6 +45,8 @@ var budgetController = (function() {
             // so if the array is empty make the id 0
             if (data.allItems[type].length > 0) {
                 // type = inc or exp
+                // data.allItems[type] = data.allItems.exp
+                // first select the last element of type [exp]
                 ID = data.allItems[type][data.allItems[type].length - 1].id + 1;
             } else {
                 ID = 0;
@@ -58,8 +60,10 @@ var budgetController = (function() {
             }
             // the type is 'exp' or 'inc', comes from the input argument from the function
             // push new item into our data structure
+            // data.allItems.exp.push(newItem);
             data.allItems[type].push(newItem);
-            // return the newItem so the other module can use the new item we just created.it's returned to the calling method.
+            // return the newItem so the other calling module of function can have direct access to the new item we just created.
+            // it's returned to the calling method.
             return newItem;
         },
         // our data structure is private so to show it in the console we can create a 
@@ -82,7 +86,8 @@ var UIController = (function() {
     }
 
     // public method to use in other modules
-    // return an object with methods and that will be assigned to the UIController
+    // return an empty object with methods so the method will accessable from the outside
+    // and that will be assigned to the UIController
     return {
         // method getInput to return an object to return all of the 3 inputs from the UI,
         getInput: function() {
@@ -132,7 +137,7 @@ var controller = (function(budgetCtrl, UICtrl) {
 
         // 1. get the Object fields input data back from the UIController.
         input = UICtrl.getInput();
-        console.log('hieronder staan de GUI input waarde')
+        console.log('hieronder staan de GUI input waarde');
         console.log(input);
 
         // 2. add the item (expense or income) to the budgetController
