@@ -28,6 +28,46 @@ var budgetController = (function() {
             inc: 0
         }
     };
+    return {
+        addItem: function(type, des, val) {
+            var newItem, ID;
+
+            //[1 2 3 4 5], next ID = 6
+            // below an id of 6 you will have 2 id's of 6 and that is not possible.
+            // ID = last ID + 1
+            //[1 2 4 6 8], next ID = 9
+            // the last id is 4, because position 0,1,2 3,4 = nr 8
+            // the length is 5 and array is zero based, 5 - 1 = 4
+            // ID = last ID + 1
+
+            // create new ID
+            // when array is empty it will be 0 length - 1 = -1 and there is no id with -1.
+            // so if the array is empty make the id 0
+            if (data.allItems[type].length > 0) {
+                // type = inc or exp
+                ID = data.allItems[type][data.allItems[type].length - 1].id + 1;
+            } else {
+                ID = 0;
+            }
+
+            // create new id based on 'inc' or 'exp' type 
+            if (type === 'exp') {
+                newItem = new Expense(ID, des, val);
+            } else if (type === 'inc') {
+                newItem = new Income(ID, des, val);
+            }
+            // the type is 'exp' or 'inc', comes from the input argument from the function
+            // push new item into our data structure
+            data.allItems[type].push(newItem);
+            // return the newItem so the other module can use the new item we just created.it's returned to the calling method.
+            return newItem;
+        },
+        // our data structure is private so to show it in the console we can create a 
+        // test function which is console.log the data object
+        testing: function() {
+            console.log(data);
+        }
+    };
 })();
 
 // UICONTROLLER
@@ -88,18 +128,23 @@ var controller = (function(budgetCtrl, UICtrl) {
         });
     };
     ctrlAddItem = function() {
+        var input, newItem;
 
         // 1. get the Object fields input data back from the UIController.
-        var input = UICtrl.getInput();
+        input = UICtrl.getInput();
+        console.log('hieronder staan de GUI input waarde')
         console.log(input);
 
         // 2. add the item (expense or income) to the budgetController
+        // addItem method returns an object so we need to save it in a variable.
+        newItem = budgetCtrl.addItem(input.type, input.description, input.value);
 
         // 3. add the new item to the UIController
 
         // 4. calculate the budget
 
         // 5. display the new budget on the UI
+
     };
 
     return {
