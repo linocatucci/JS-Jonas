@@ -26,7 +26,25 @@ var budgetController = (function() {
         totals: {
             exp: 0,
             inc: 0
-        }
+        },
+        budget: 0,
+        percentage: -1 // -1 betekent dat de waarde niet bestaat
+    };
+
+    var calculateTotal = function(type) {
+        var sum = 0;
+        data.allItems[type].forEach(function(current) {
+            sum += current.value;
+            /*
+            voorbeeld
+            0
+            [200, 400, 100]
+            1e iteratie : sum = 0 + 200
+            2e iteratie : sum = 200 + 400
+            3e iteratie : sum = 600 + 100
+            */
+        });
+        data.totals[type] = sum;
     };
     return {
         addItem: function(type, des, val) {
@@ -66,6 +84,29 @@ var budgetController = (function() {
             // it's returned to the calling method.
             return newItem;
         },
+        calculateBudget: function() {
+            // 1. calculate the sum of all incomes and the sum of all expenses
+            calculateTotal('exp');
+            calculateTotal('inc');
+
+            // 3. calculate the budget (income - expenses)
+            data.budget = data.totals.inc - data.totals.exp;
+
+            // 4. calculate the percentage of expenses (already spent in relation to the totale income)
+            if (data.totals.inc > 0) {
+                data.percentage = Math.round((data.totals.exp / data.totals.inc) * 100);
+            } else {
+                percentage = -1;
+            }
+        },
+        getBudget: function() {
+            return {
+                budget: data.budget,
+                totalInc: data.totals.inc,
+                totalExp: data.totals.exp,
+                percentage: data.percentage
+            };
+        },
         // our data structure is private so to show it in the console we can create a 
         // test function which is console.log the data object
         testing: function() {
@@ -100,7 +141,7 @@ var UIController = (function() {
                 // key:value pair
                 type: document.querySelector(DOMStrings.inputType).value, // will be (inc(+) or exp(-)
                 description: document.querySelector(DOMStrings.inputDescription).value,
-                value: document.querySelector(DOMStrings.inputValue).value
+                value: parseFloat(document.querySelector(DOMStrings.inputValue).value)
             };
         },
         addListItem: function(obj, type) {
@@ -129,11 +170,31 @@ var UIController = (function() {
             // insert html into the DOM
             document.querySelector(element).insertAdjacentHTML('beforeend', newHtml);
         },
+        clearFields: function() {
+            var fields, fieldsArray;
+            // create an array (2 values)
+            fields = document.querySelectorAll(DOMStrings.inputDescription + ', ' + DOMStrings.inputValue);
+            // querySelectorAll does not return an array but a list, and it misses all the array methods
+            // fields.slice will not work because fields is not array the querySelectorAll did not give an array back
+            // use a trick of the array slice method
+            // pass a array into the slice method
+            // the slice method is stored in the array prototype
+
+            fieldsArray = Array.prototype.slice.call(fields);
+            // new method to loop over an array and pass in a call back function, in this case an anonymous function
+            // and the call back function( anonymous function) will expect up to 3 arguments, like as the call back function
+            // to the addEventListener method. (current value, index nr 0 to lenght array -1, and entire array)
+            // current value is current element: DOMStringMap.inputDescription + ', ' + DOMStrings.inputValue
+            fieldsArray.forEach(function(current, index, array) {
+                // in the fields array first the inputDescription then the inputValue
+                current.value = "";
+            });
+            fieldsArray[0].focus();
+        },
         // to use the DOMStrings in the app controller we need to return them
         getDOMStrings: function() {
             return DOMStrings;
         }
-
     };
 })();
 
@@ -161,7 +222,20 @@ var controller = (function(budgetCtrl, UICtrl) {
             }
         });
     };
-    ctrlAddItem = function() {
+
+    var updateBudget = function() {
+
+        // 1. calculate the budget
+        budgetCtrl.calculateBudget();
+
+        // 2. return the budget (each function has it's own task), a return function in the budget controller.
+        var budget = budgetCtrl.getBudget();
+
+        // 3. display the new budget on the UI
+        console.log(budget);
+    };
+
+    var ctrlAddItem = function() {
         var input, newItem;
 
         // 1. get the Object fields input data back from the UIController.
@@ -169,17 +243,21 @@ var controller = (function(budgetCtrl, UICtrl) {
         console.log('hieronder staan de GUI input waarde');
         console.log(input);
 
-        // 2. add the item (expense or income) to the budgetController
-        // addItem method returns an object so we need to save it in a variable.
-        newItem = budgetCtrl.addItem(input.type, input.description, input.value);
+        if (input.description !== "" && !isNaN(input.value) && input.value > 0) {
 
-        // 3. add the new item to the UIController
-        UICtrl.addListItem(newItem, input.type);
+            // 2. add the item (expense or income) to the budgetController
+            // addItem method returns an object so we need to save it in a variable.
+            newItem = budgetCtrl.addItem(input.type, input.description, input.value);
 
-        // 4. calculate the budget
+            // 3. add the new item to the UIController
+            UICtrl.addListItem(newItem, input.type);
 
-        // 5. display the new budget on the UI
+            // 4. clear the fields of the input in the UI
+            UICtrl.clearFields();
 
+            // 5. calculate and update the budget 
+            updateBudget();
+        }
     };
 
     return {
