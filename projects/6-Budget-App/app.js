@@ -17,7 +17,7 @@ var budgetController = (function() {
         this.description = description;
         this.value = value;
     };
-    // object to store the total incomes and expenses
+    // object to store the all items(expense or income object) and the total incomes and expenses
     var data = {
         allItems: {
             exp: [],
