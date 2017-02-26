@@ -189,6 +189,8 @@ var UIController = (function() {
                 // in the fields array first the inputDescription then the inputValue
                 current.value = "";
             });
+            // after the element has been added to the UI list (income or expense), 
+            // set the focus on the inputDescription field again, which is the first [0] element in the array
             fieldsArray[0].focus();
         },
         // to use the DOMStrings in the app controller we need to return them
