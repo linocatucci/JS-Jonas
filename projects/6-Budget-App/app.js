@@ -125,7 +125,12 @@ var UIController = (function() {
         inputValue: '.add__value',
         inputBtn: '.add__btn',
         incomeContainer: '.income__list',
-        expenseContainer: '.expenses__list'
+        expenseContainer: '.expenses__list',
+        budgetLabel: '.budget__value',
+        incomeLabel: '.budget__income--value',
+        expenseLabel: '.budget__expenses--value',
+        percentageLabel: '.budget__expenses--percentage'
+
     }
 
     // public method to use in other modules
@@ -196,6 +201,18 @@ var UIController = (function() {
         // to use the DOMStrings in the app controller we need to return them
         getDOMStrings: function() {
             return DOMStrings;
+        },
+        displayBudget: function(obj) {
+            document.querySelector(DOMStrings.budgetLabel).textContent = '€ ' + obj.budget;
+            document.querySelector(DOMStrings.incomeLabel).textContent = obj.totalInc;
+            document.querySelector(DOMStrings.expenseLabel).textContent = obj.totalExp;
+
+            if (obj.totalInc > 0) {
+                document.querySelector(DOMStrings.percentageLabel).textContent = obj.percentage + '%';
+            } else {
+                document.querySelector(DOMStrings.percentageLabel).textContent = '--';
+            }
+
         }
     };
 })();
@@ -233,7 +250,8 @@ var controller = (function(budgetCtrl, UICtrl) {
         // 2. return the budget (each function has it's own task), a return function in the budget controller.
         var budget = budgetCtrl.getBudget();
 
-        // 3. display the new budget on the UI
+        // 3. display the new budget on the UI, use the returned budget object 
+        UICtrl.displayBudget(budget);
         console.log(budget);
     };
 
@@ -259,6 +277,7 @@ var controller = (function(budgetCtrl, UICtrl) {
 
             // 5. calculate and update the budget 
             updateBudget();
+
         }
     };
 
@@ -266,6 +285,13 @@ var controller = (function(budgetCtrl, UICtrl) {
         init: function() {
             console.log('Application has started!');
             setUpEventListners();
+            // pass in the budget object / similar to the budget object but set them to 0
+            UICtrl.displayBudget({
+                budget: 0,
+                totalInc: 0,
+                totalExp: 0,
+                percentage: -1
+            });
         }
     }
 })(budgetController, UIController);
