@@ -84,6 +84,23 @@ var budgetController = (function () {
             // it's returned to the calling method.
             return newItem;
         },
+        deleteItem: function (type, id) {
+            var ids, index;
+
+            // 1. delete item from data structure
+            // id = 6
+            // data.allItems[type].slice[ID];
+            // id with 3 will be the position of the item 4 in the array. And that is not good!
+            // the array is not in order. 
+            // ids = [1 2 4 6 8]
+            // index = 3 tellen vanaf (0, 1, 2, 3)
+
+            // call back function has access to the current element, current index and entire array
+            ids = data.allItems[type].map(function (current) {
+                return current.id;
+            });
+
+        },
         calculateBudget: function () {
             // 1. calculate the sum of all incomes and the sum of all expenses
             calculateTotal('exp');
@@ -284,10 +301,23 @@ var controller = (function (budgetCtrl, UICtrl) {
 
     var ctrlDeleteItem = function (event) {
         // to know what the target html element is, we will pass the event in the function
-        itemID = event.target.parentNode.parentNode.parentNode.parentNode.id;
-        itemID.split('-');
-        console.log(itemID);
+        var itemID, splitID, type, ID;
 
+        itemID = event.target.parentNode.parentNode.parentNode.parentNode.id;
+
+        if (itemID) {
+
+            splitID = itemID.split('-');
+            type = splitID[0];
+            ID = splitID[1];
+
+            // 1. delete item from data structure
+
+            // 2. delete the item from the UI
+
+            // 3. update and show the new budget
+
+        }
     };
 
     return {
