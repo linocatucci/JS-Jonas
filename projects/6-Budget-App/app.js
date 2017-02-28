@@ -3,16 +3,16 @@
 // to be public and used by the outside
 
 // the budgetController is an iife which will return an object
-var budgetController = (function() {
+var budgetController = (function () {
 
     // object for the expense
-    var Expense = function(id, description, value) {
+    var Expense = function (id, description, value) {
         this.id = id;
         this.description = description;
         this.value = value;
     };
     // object for the income
-    var Income = function(id, description, value) {
+    var Income = function (id, description, value) {
         this.id = id;
         this.description = description;
         this.value = value;
@@ -31,9 +31,9 @@ var budgetController = (function() {
         percentage: -1 // -1 betekent dat de waarde niet bestaat
     };
 
-    var calculateTotal = function(type) {
+    var calculateTotal = function (type) {
         var sum = 0;
-        data.allItems[type].forEach(function(current) {
+        data.allItems[type].forEach(function (current) {
             sum += current.value;
             /*
             voorbeeld
@@ -47,7 +47,7 @@ var budgetController = (function() {
         data.totals[type] = sum;
     };
     return {
-        addItem: function(type, des, val) {
+        addItem: function (type, des, val) {
             var newItem, ID;
 
             //[1 2 3 4 5], next ID = 6
@@ -84,7 +84,7 @@ var budgetController = (function() {
             // it's returned to the calling method.
             return newItem;
         },
-        calculateBudget: function() {
+        calculateBudget: function () {
             // 1. calculate the sum of all incomes and the sum of all expenses
             calculateTotal('exp');
             calculateTotal('inc');
@@ -99,7 +99,7 @@ var budgetController = (function() {
                 percentage = -1;
             }
         },
-        getBudget: function() {
+        getBudget: function () {
             return {
                 budget: data.budget,
                 totalInc: data.totals.inc,
@@ -109,14 +109,14 @@ var budgetController = (function() {
         },
         // our data structure is private so to show it in the console we can create a 
         // test function which is console.log the data object
-        testing: function() {
+        testing: function () {
             console.log(data);
         }
     };
 })();
 
 // UICONTROLLER
-var UIController = (function() {
+var UIController = (function () {
 
     // create an object which stores all the DOM/UI strings 
     var DOMStrings = {
@@ -129,7 +129,8 @@ var UIController = (function() {
         budgetLabel: '.budget__value',
         incomeLabel: '.budget__income--value',
         expenseLabel: '.budget__expenses--value',
-        percentageLabel: '.budget__expenses--percentage'
+        percentageLabel: '.budget__expenses--percentage',
+        container: '.container'
 
     }
 
@@ -138,7 +139,7 @@ var UIController = (function() {
     // and that will be assigned to the UIController
     return {
         // method getInput to return an object to return all of the 3 inputs from the UI,
-        getInput: function() {
+        getInput: function () {
             // returning an object because we need to return 3 values (type, desc, value)
             return {
                 // here will we read the data from the UI
@@ -149,7 +150,7 @@ var UIController = (function() {
                 value: parseFloat(document.querySelector(DOMStrings.inputValue).value)
             };
         },
-        addListItem: function(obj, type) {
+        addListItem: function (obj, type) {
             var html, newHtml, element;
 
             // 3. add the new item to the UIController
@@ -159,11 +160,11 @@ var UIController = (function() {
             if (type === 'inc') {
                 element = DOMStrings.incomeContainer;
 
-                html = '<div class="item clearfix" id="income-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+                html = '<div class="item clearfix" id="inc-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
             } else if (type === 'exp') {
                 element = DOMStrings.expenseContainer;
 
-                html = '<div class="item clearfix" id="expense-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+                html = '<div class="item clearfix" id="exp-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
             }
 
             // replace the placeholder tekst with real data
@@ -175,7 +176,7 @@ var UIController = (function() {
             // insert html into the DOM
             document.querySelector(element).insertAdjacentHTML('beforeend', newHtml);
         },
-        clearFields: function() {
+        clearFields: function () {
             var fields, fieldsArray;
             // create an array (2 values)
             fields = document.querySelectorAll(DOMStrings.inputDescription + ', ' + DOMStrings.inputValue);
@@ -190,7 +191,7 @@ var UIController = (function() {
             // and the call back function( anonymous function) will expect up to 3 arguments, like as the call back function
             // to the addEventListener method. (current value, index nr 0 to lenght array -1, and entire array)
             // current value is current element: DOMStringMap.inputDescription + ', ' + DOMStrings.inputValue
-            fieldsArray.forEach(function(current, index, array) {
+            fieldsArray.forEach(function (current, index, array) {
                 // in the fields array first the inputDescription then the inputValue
                 current.value = "";
             });
@@ -199,10 +200,10 @@ var UIController = (function() {
             fieldsArray[0].focus();
         },
         // to use the DOMStrings in the app controller we need to return them
-        getDOMStrings: function() {
+        getDOMStrings: function () {
             return DOMStrings;
         },
-        displayBudget: function(obj) {
+        displayBudget: function (obj) {
             document.querySelector(DOMStrings.budgetLabel).textContent = '€ ' + obj.budget;
             document.querySelector(DOMStrings.incomeLabel).textContent = obj.totalInc;
             document.querySelector(DOMStrings.expenseLabel).textContent = obj.totalExp;
@@ -218,10 +219,10 @@ var UIController = (function() {
 })();
 
 // GLOBAL APP CONTROLLER
-var controller = (function(budgetCtrl, UICtrl) {
+var controller = (function (budgetCtrl, UICtrl) {
 
     // initialize function
-    var setUpEventListners = function() {
+    var setUpEventListners = function () {
 
         // to use the DOMStrings from the UI controller
         var DOMStrings = UICtrl.getDOMStrings();
@@ -234,15 +235,16 @@ var controller = (function(budgetCtrl, UICtrl) {
         // key press event listner, on the global document that's why not a css class is selected.
         // the function after the click is an anonymous funciton, we will now pass an argument into the function
         // the argument will be called event
-        document.addEventListener('keypress', function(event) {
+        document.addEventListener('keypress', function (event) {
 
             if (event.keyCode === 13 || event.which === 13) {
                 ctrlAddItem();
             }
         });
+        document.querySelector(DOMStrings.container).addEventListener('click', ctrlDeleteItem);
     };
 
-    var updateBudget = function() {
+    var updateBudget = function () {
 
         // 1. calculate the budget
         budgetCtrl.calculateBudget();
@@ -255,7 +257,7 @@ var controller = (function(budgetCtrl, UICtrl) {
         console.log(budget);
     };
 
-    var ctrlAddItem = function() {
+    var ctrlAddItem = function () {
         var input, newItem;
 
         // 1. get the Object fields input data back from the UIController.
@@ -277,12 +279,19 @@ var controller = (function(budgetCtrl, UICtrl) {
 
             // 5. calculate and update the budget 
             updateBudget();
-
         }
     };
 
+    var ctrlDeleteItem = function (event) {
+        // to know what the target html element is, we will pass the event in the function
+        itemID = event.target.parentNode.parentNode.parentNode.parentNode.id;
+        itemID.split('-');
+        console.log(itemID);
+
+    };
+
     return {
-        init: function() {
+        init: function () {
             console.log('Application has started!');
             setUpEventListners();
             // pass in the budget object / similar to the budget object but set them to 0
