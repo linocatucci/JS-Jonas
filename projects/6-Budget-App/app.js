@@ -87,18 +87,37 @@ var budgetController = (function () {
         deleteItem: function (type, id) {
             var ids, index;
 
-            // 1. delete item from data structure
-            // id = 6
-            // data.allItems[type].slice[ID];
-            // id with 3 will be the position of the item 4 in the array. And that is not good!
-            // the array is not in order. 
+            // 1. delete items from data structure
+            // element id = 3
+            // data.allItems[type].slice[ID]; gaat niet werken want 
             // ids = [1 2 4 6 8]
-            // index = 3 tellen vanaf (0, 1, 2, 3)
+            // YOu will delete the array element with an id of 6! And not 3!
+            // element with the id of 6 will be the position of the index of 3 in the array. slice[id] will not work 
+            // because the wrong id will be removed.
+            // the array is not in order. the array inedex of 0, 3, 5, and 7 are missing.
+            // ids = [1 2 4 6 8]
+            // If you want to delete an array element with id 6, you need to delete the array element 
+            // with an index = 3
+            // a ID of 6 has an array index = 3 tellen vanaf (0, 1, 2, 3)
+
+            // solution is to loop over all the elements in the array with map method with all the id's which we have. 
 
             // call back function has access to the current element, current index and entire array
+            // map returns a new array
             ids = data.allItems[type].map(function (current) {
+                // return 2, will add nr 2 in all of the elements 
+                // with current.id the array will end up with this array index of [1 2 4 6 8] element 
                 return current.id;
             });
+            // id = 6
+            // index will be 3
+            // returns the index nr of he element of the array we input with id
+            index = ids.indexOf(id);
+            console.log(index);
+
+            if (index !== -1) {
+                data.allItems[type].splice(index, 1); // index = index of array, 1 is the number of elements you want to delete 
+            }
 
         },
         calculateBudget: function () {
@@ -192,6 +211,13 @@ var UIController = (function () {
 
             // insert html into the DOM
             document.querySelector(element).insertAdjacentHTML('beforeend', newHtml);
+        },
+        deleteListItem: function (selectorID) {
+            //selectorID is the itemID or inc-1 or inc-0
+            // getting the html id
+            var elementID = document.getElementById(selectorID);
+            elementID.parentNode.removeChild(elementID);
+
         },
         clearFields: function () {
             var fields, fieldsArray;
@@ -305,18 +331,24 @@ var controller = (function (budgetCtrl, UICtrl) {
 
         itemID = event.target.parentNode.parentNode.parentNode.parentNode.id;
 
+        // console.log(itemID);
+
         if (itemID) {
 
+            // inc-1 or inc-0
             splitID = itemID.split('-');
-            type = splitID[0];
-            ID = splitID[1];
+            type = splitID[0]; //inc
+            ID = parseInt(splitID[1]); // 0 or 1 or whatever, but first we need to convert it to a integer. 
+            // It came out of the SplitID string
 
             // 1. delete item from data structure
+            budgetCtrl.deleteItem(type, ID);
 
             // 2. delete the item from the UI
+            UICtrl.deleteListItem(itemID);
 
             // 3. update and show the new budget
-
+            updateBudget();
         }
     };
 
