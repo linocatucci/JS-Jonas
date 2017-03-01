@@ -10,13 +10,29 @@ var budgetController = (function () {
         this.id = id;
         this.description = description;
         this.value = value;
+        this.percentage = -1;
     };
     // object for the income
     var Income = function (id, description, value) {
         this.id = id;
         this.description = description;
         this.value = value;
+
     };
+
+    Expense.prototype.calPercentage = function (totalIncome) {
+
+        if (totalIncome > 0) {
+            this.percentage = Math.round((this.value / totalIncome) * 100);
+        } else {
+            this.percentage = -1;
+        }
+    };
+
+    Expense.prototype.getPercentage = function () {
+        return this.percentage;
+    };
+
     // object to store the all items(expense or income object) and the total incomes and expenses
     var data = {
         allItems: {
@@ -135,6 +151,34 @@ var budgetController = (function () {
                 percentage = -1;
             }
         },
+
+        calculatePercentages: function () {
+
+            /*
+            a=20
+            b=10
+            c=40
+            income = 100
+            a = 20/100 = 20%
+            b = 10/100 = 10%
+            c = 40/100 = 40%
+            */
+            // loops over the exp array and for each current array element it will execute the calculatePercentages method
+            data.allItems.exp.forEach(function (current) {
+                current.calPercentage(data.totals.inc);
+            });
+
+        },
+
+        getPercentage: function () {
+            // instead of only loop over the array, we want to return the array too. This is done with map
+            var allPercentages = data.allItems.exp.map(function (current) {
+
+                return current.getPercentage();
+            });
+            return allPercentages;
+        },
+
         getBudget: function () {
             return {
                 budget: data.budget,
@@ -168,7 +212,7 @@ var UIController = (function () {
         percentageLabel: '.budget__expenses--percentage',
         container: '.container'
 
-    }
+    };
 
     // public method to use in other modules
     // return an empty object with methods so the method will accessable from the outside
@@ -300,6 +344,19 @@ var controller = (function (budgetCtrl, UICtrl) {
         console.log(budget);
     };
 
+    var updatePercentages = function () {
+
+        // 1. calculate the percentages
+        budgetCtrl.calculatePercentages();
+
+        // 2. get and return percentages from the budget controller
+        var percentages = budgetCtrl.getPercentage();
+
+        // 3. update the UI with the new percentages
+        console.log(percentages);
+
+    };
+
     var ctrlAddItem = function () {
         var input, newItem;
 
@@ -322,6 +379,9 @@ var controller = (function (budgetCtrl, UICtrl) {
 
             // 5. calculate and update the budget 
             updateBudget();
+
+            // 6. calculate and update the percentages
+            updatePercentages();
         }
     };
 
@@ -349,6 +409,9 @@ var controller = (function (budgetCtrl, UICtrl) {
 
             // 3. update and show the new budget
             updateBudget();
+
+            // 4. calculate and update the percentages
+            updatePercentages();
         }
     };
 
@@ -364,7 +427,7 @@ var controller = (function (budgetCtrl, UICtrl) {
                 percentage: -1
             });
         }
-    }
+    };
 })(budgetController, UIController);
 
 controller.init();
