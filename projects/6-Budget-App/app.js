@@ -1,3 +1,11 @@
+// TODO:
+// 1. send the final thru email
+// 2. split the project in 3 files (MVC)
+/*But, yeah, we could totally do that, and then in each file we would have one controller, which we could actually wrap in an IIFE to prevent the variable overwriting. That's totally possible :)*/
+// 3. Error handling when input fields are empty (description and value)
+// 4. Login but using then NodeJS ( Andrew Meads)
+
+
 // module pattern is an IIFE and uses closures (returning a function or an object with a function)
 // module pattern secret is that it will return an object containing all the functions we would like
 // to be public and used by the outside
@@ -256,6 +264,12 @@ var UIController = (function () {
 
     };
 
+    var NodeListForEach = function (nodeList, callback) {
+        for (var i = 0; i < nodeList.length; i++) {
+            callback(nodeList[i], i);
+        }
+    };
+
     // public method to use in other modules
     // return an empty object with methods so the method will accessable from the outside
     // and that will be assigned to the UIController
@@ -312,11 +326,6 @@ var UIController = (function () {
             var fields = document.querySelectorAll(DOMStrings.expensesPercentageLabel);
             console.log(fields);
 
-            var NodeListForEach = function (nodeList, callback) {
-                for (var i = 0; i < nodeList.length; i++) {
-                    callback(nodeList[i], i);
-                }
-            };
             NodeListForEach(fields, function (current, index) {
                 if (percentages[index] > 0) {
                     // first element [0] = percentage of index [0] + %
@@ -389,6 +398,21 @@ var UIController = (function () {
                 document.querySelector(DOMStrings.percentageLabel).textContent = '--';
             }
 
+        },
+        changedType: function () {
+
+            var fields = document.querySelectorAll(DOMStrings.inputType + ',' +
+                DOMStrings.inputDescription + ',' +
+                DOMStrings.inputValue);
+
+            NodeListForEach(fields, function (current) {
+                // not add the red focus class when it's not there and remove class when it;s thtere it toggles.
+                current.classList.toggle('red-focus');
+
+            });
+            // now we will change the button to red or blue (toggle)
+            document.querySelector(DOMStrings.inputBtn).classList.toggle('red');
+
         }
     };
 })();
@@ -417,6 +441,9 @@ var controller = (function (budgetCtrl, UICtrl) {
             }
         });
         document.querySelector(DOMStrings.container).addEventListener('click', ctrlDeleteItem);
+
+        // when changing the + to - the focus input fields should change to red.
+        document.querySelector(DOMStrings.inputType).addEventListener('change', UICtrl.changedType);
     };
 
     var updateBudget = function () {
