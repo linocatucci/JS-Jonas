@@ -211,7 +211,48 @@ var UIController = (function () {
         expenseLabel: '.budget__expenses--value',
         percentageLabel: '.budget__expenses--percentage',
         container: '.container',
-        expensesPercentageLabel: '.item__percentage'
+        expensesPercentageLabel: '.item__percentage',
+        dateLabel: '.budget__title--month'
+
+    };
+
+    var formatNumber = function (number, type) {
+        var numberSplit, int, dec, type;
+
+        // type = exp or inc. then the sign will be a - or a + sign
+
+        /*
+        + or - before the number
+        exactly 2 decimal points
+        comma separating the thousands
+        2310.4567 -> + 2,310.46
+        2000 -> + 2,000.00
+        */
+        number = Math.abs(number);
+        number = number.toFixed(2); //2310.4567 -> 2310.46 and 2000 -> 2000.00
+
+        // will split the number in two parts, the integer part and decimal part based on the '.'
+        // 2310.46 wordt 2310 en 46
+        numberSplit = number.split('.');
+        int = numberSplit[0];
+
+        // 3 is more than a thousand
+        if (int.length > 3) {
+            // substring allows us a part of the string.
+            // bij de eerste substring = 2310 wordt lezen van positie 0 en 1 erbij is de 2
+            // bij de 2 wordt een , toegevoegd dus 2, dan wordt er bij positie 1 verder geteld dus 2 en dan 3
+            // posities verder is de 310. 
+            // maar je weet niet hoelang het getal is dus je moet met num.lenght gaan werken.
+            // int = int.substr(0, 1) + ',' + int.substr(1, 3);
+            // bij 2310 int length is 4 - 3 = 1 --> 2,310
+
+            // bij 23510 int length is 5 - 3 = 2 --> 23,510
+            int = int.substr(0, int.length - 3) + ',' + int.substr(int.length - 3, 3);
+
+        }
+        dec = numberSplit[1];
+
+        return (type === 'exp' ? '-' : '+') + ' ' + int + '.' + dec;
 
     };
 
@@ -252,7 +293,7 @@ var UIController = (function () {
             newHtml = html.replace('%id%', obj.id);
             // don't use the html, because the 1st replacement is in the new newHtml variable, 
             newHtml = newHtml.replace('%description%', obj.description);
-            newHtml = newHtml.replace('%value%', obj.value);
+            newHtml = newHtml.replace('%value%', formatNumber(obj.value, type));
 
             // insert html into the DOM
             document.querySelector(element).insertAdjacentHTML('beforeend', newHtml);
@@ -278,9 +319,9 @@ var UIController = (function () {
             };
             NodeListForEach(fields, function (current, index) {
                 if (percentages[index] > 0) {
-
+                    // first element [0] = percentage of index [0] + %
                     current.textContent = percentages[index] + '%';
-                    console.log(current.textContent);
+                    // console.log(current.textContent);
                 } else {
                     current.textContent = '---';
                 }
@@ -311,37 +352,36 @@ var UIController = (function () {
             fieldsArray[0].focus();
         },
 
-        formatNumber: function (number, type) {
-            var numberSplit, int, dec;
-            /*
-            + or - before the number
-            exactly 2 decimal points
-            comma separating the thousands
-            2310.4567 -> + 2,310.46
-            2000 -> + 2,000.00
-            */
-            number = Math.abs(number);
-            number = number.toFixed(2); //2310.4567 -> 2310.46 and 2000 -> 2000.00
-            numberSplit = number.split('.');
+        displayMonth: function () {
 
-            int = numberSplit[0];
-            if (int.length > 3) {
-                int.subs
-            }
+            var now, year, months, month, day;
 
-            dec = numberSplit[1];
+            var now = new Date();
+            // var christmans = new Date(2016, 11, 25) // zero based
+
+            months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+
+            year = now.getFullYear();
+            month = now.getMonth();
+
+            document.querySelector(DOMStrings.dateLabel).textContent = months[month] + ' ' + year;
+
 
         },
-
 
         // to use the DOMStrings in the app controller we need to return them
         getDOMStrings: function () {
             return DOMStrings;
         },
         displayBudget: function (obj) {
-            document.querySelector(DOMStrings.budgetLabel).textContent = '€ ' + obj.budget;
-            document.querySelector(DOMStrings.incomeLabel).textContent = obj.totalInc;
-            document.querySelector(DOMStrings.expenseLabel).textContent = obj.totalExp;
+
+            var type;
+            obj.budget > 0 ? type = 'inc' : type = 'exp';
+
+            document.querySelector(DOMStrings.budgetLabel).textContent = '€ ' + formatNumber(obj.budget, type);
+            document.querySelector(DOMStrings.incomeLabel).textContent = formatNumber(obj.totalInc, 'inc');
+            document.querySelector(DOMStrings.expenseLabel).textContent = formatNumber(obj.totalExp, 'exp');
 
             if (obj.totalInc > 0) {
                 document.querySelector(DOMStrings.percentageLabel).textContent = obj.percentage + '%';
@@ -470,6 +510,7 @@ var controller = (function (budgetCtrl, UICtrl) {
             console.log('Application has started!');
             setUpEventListners();
             // pass in the budget object / similar to the budget object but set them to 0
+            UICtrl.displayMonth();
             UICtrl.displayBudget({
                 budget: 0,
                 totalInc: 0,

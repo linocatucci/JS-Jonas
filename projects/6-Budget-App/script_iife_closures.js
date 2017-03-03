@@ -14,14 +14,14 @@ var john = {
 // it's a pattern to write an object!
 // needs to start with a capital!
 
-var Person = function(name, yearOfBirth, job) {
+var Person = function (name, yearOfBirth, job) {
     this.name = name;
     this.yearOfBirth = yearOfBirth;
     this.job = job;
 };
 
 // inheritance 
-Person.prototype.calculateAge = function() {
+Person.prototype.calculateAge = function () {
     console.log(2016 - this.yearOfBirth);
 }
 
@@ -37,7 +37,7 @@ mark.calculateAge();
 john.calculateAge();
 
 // eigen object
-var Car = function(brand, type, engine, horsePower, color, yearOfMake, leaseContract) {
+var Car = function (brand, type, engine, horsePower, color, yearOfMake, leaseContract) {
     this.brand = brand;
     this.type = type;
     this.engine = engine;
@@ -48,7 +48,7 @@ var Car = function(brand, type, engine, horsePower, color, yearOfMake, leaseCont
 
 };
 // eigen object method
-Car.prototype.calculateEndLeaseContract = function() {
+Car.prototype.calculateEndLeaseContract = function () {
     this.yearOfEndContract = this.yearOfMake + this.leaseContract;
     console.log(this.yearOfEndContract);
 
@@ -76,6 +76,8 @@ function arrayCalc(arr, fn) {
 // el = arr[i]
 // el = 1990
 // calculateAge(1990)
+
+
 function calculateAge(el) {
     return 2016 - el;
 };
@@ -109,11 +111,11 @@ console.log(arrayCalc(ages, yearsUntil40));
 
 function interviewQuestion(job) {
     if (job === 'designer') {
-        return function(name) {
+        return function (name) {
             console.log(name + ' ,what is UX design?');
         };
     } else if (job === 'teacher') {
-        return function(name) {
+        return function (name) {
             console.log('what subject do you teach ' + name);
         };
     }
@@ -128,7 +130,7 @@ designerQuestion('John');
 // 1. deze function retourneert een functie die een getal kan tonen
 
 function geefGetalToonFunctie(getal) {
-    return function(getal) {
+    return function (getal) {
         console.log(getal + ' is ingetoetst');
     }
 };
@@ -143,7 +145,7 @@ Wat ik in zo’n geval altijd doe is “uitkleden” tot de basis, zie bijlage.
 
 // 1. deze function retourneert een functie die een getal kan tonen
 function geefGetalToonFunctie() {
-    return function(getal) {
+    return function (getal) {
         console.log(getal);
     }
 }
@@ -156,7 +158,7 @@ getalToonFunctie(5)
 //1. deze functie geeft een welomst boodschap terug, obv het moment van de dag met de naam (input)
 
 function geefEenHalloTekstTerug(momentVanDeDag) {
-    return function(naam) {
+    return function (naam) {
         console.log('Goede' + momentVanDeDag + ' ' + naam);
     }
 };
@@ -172,12 +174,12 @@ function game() {
 }
 game();
 
-(function() {
+(function () {
     var score = Math.random() * 10;
     console.log(score >= 5);
 })();
 
-(function(goodluck) {
+(function (goodluck) {
     var score = Math.random() * 10;
     console.log(score >= 5) - goodluck;
 })(5);
@@ -186,7 +188,7 @@ game();
 // a function returns a funciton how many years we have left until retirement
 function retirement(retirementAge) {
     var a = ' years left until retirement';
-    return function(yearOfBirth) {
+    return function (yearOfBirth) {
         var age = 2016 - yearOfBirth;
         console.log((retirementAge - age) + a);
     }
@@ -215,7 +217,7 @@ function interviewQuestion(job) {
 }
 */
 function interviewQuestion(job) {
-    return function(name) {
+    return function (name) {
         if (job === 'designer') {
             console.log(name + ' ,what is UX design?');
         } else if (job === 'teacher') {
@@ -231,7 +233,7 @@ teacherQuestion2('Lino');
 
 var xx = 23;
 
-var add = function(a) {
+var add = function (a) {
     return xx + a;
 }
 
@@ -316,7 +318,7 @@ function game() {
 game();
 
 // IIFE
-(function() {
+(function () {
     var randomNR = Math.random() * 10;
     if (randomNR > 5) {
         console.log(randomNR);
@@ -327,7 +329,7 @@ game();
     }
 })();
 
-(function(goodluck) {
+(function (goodluck) {
     var randomNR = Math.random() * 10;
     if (randomNR > 5 - goodluck) {
         console.log(randomNR);
@@ -347,7 +349,7 @@ game();
 
 
 function retirement(retiremenAge) {
-    return function(yearOfBirth) {
+    return function (yearOfBirth) {
         var a = 'years left until retirement ';
         var age = 2016 - yearOfBirth;
         console.log((retiremenAge - age) + a);
@@ -355,7 +357,7 @@ function retirement(retiremenAge) {
 }
 
 function retirement(retiremenAge) {
-    return function(yearOfBirth) {
+    return function (yearOfBirth) {
         var tekst = ' jaren te gaan tot pensioen ';
         var age = 2016 - yearOfBirth;
         console.log((retiremenAge - age) + tekst);
