@@ -210,7 +210,8 @@ var UIController = (function () {
         incomeLabel: '.budget__income--value',
         expenseLabel: '.budget__expenses--value',
         percentageLabel: '.budget__expenses--percentage',
-        container: '.container'
+        container: '.container',
+        expensesPercentageLabel: '.item__percentage'
 
     };
 
@@ -263,6 +264,29 @@ var UIController = (function () {
             elementID.parentNode.removeChild(elementID);
 
         },
+        displayPercentage: function (percentages) {
+            // querySelector selects only one element.
+            // we will use querySelectorAll instead.
+            // returns a node list
+            var fields = document.querySelectorAll(DOMStrings.expensesPercentageLabel);
+            console.log(fields);
+
+            var NodeListForEach = function (nodeList, callback) {
+                for (var i = 0; i < nodeList.length; i++) {
+                    callback(nodeList[i], i);
+                }
+            };
+            NodeListForEach(fields, function (current, index) {
+                if (percentages[index] > 0) {
+
+                    current.textContent = percentages[index] + '%';
+                    console.log(current.textContent);
+                } else {
+                    current.textContent = '---';
+                }
+
+            });
+        },
         clearFields: function () {
             var fields, fieldsArray;
             // create an array (2 values)
@@ -286,6 +310,30 @@ var UIController = (function () {
             // set the focus on the inputDescription field again, which is the first [0] element in the array
             fieldsArray[0].focus();
         },
+
+        formatNumber: function (number, type) {
+            var numberSplit, int, dec;
+            /*
+            + or - before the number
+            exactly 2 decimal points
+            comma separating the thousands
+            2310.4567 -> + 2,310.46
+            2000 -> + 2,000.00
+            */
+            number = Math.abs(number);
+            number = number.toFixed(2); //2310.4567 -> 2310.46 and 2000 -> 2000.00
+            numberSplit = number.split('.');
+
+            int = numberSplit[0];
+            if (int.length > 3) {
+                int.subs
+            }
+
+            dec = numberSplit[1];
+
+        },
+
+
         // to use the DOMStrings in the app controller we need to return them
         getDOMStrings: function () {
             return DOMStrings;
@@ -351,9 +399,11 @@ var controller = (function (budgetCtrl, UICtrl) {
 
         // 2. get and return percentages from the budget controller
         var percentages = budgetCtrl.getPercentage();
+        console.log('hier staan de input percentages');
+        console.log(percentages);
 
         // 3. update the UI with the new percentages
-        console.log(percentages);
+        UICtrl.displayPercentage(percentages);
 
     };
 
