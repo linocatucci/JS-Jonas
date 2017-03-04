@@ -119,3 +119,60 @@ if (linoScore > SuzanScore && linoScore > juliaScore) {
     console.log('there is a draw');
 }
 console.log('linoScore: ' + linoScore + ' suzanScore: ' + SuzanScore + ' juliascore ' + juliaScore);
+
+// FUNCTIONS!!!!!
+
+var calculateAge = function (yearOfBirth) {
+
+    var age = 2017 - yearOfBirth;
+    console.log(age);
+    console.log(new Date());
+};
+
+calculateAge(1971);
+
+function printName(name) {
+    var welcomeMessage = ('Hello there ' + name);
+    return welcomeMessage;
+};
+
+var lino = printName('lino');
+console.log(lino);
+
+function calculateAge1(yearOfBirth) {
+    var age = 2016 - yearOfBirth;
+    return age;
+};
+
+var ageOfLino = calculateAge1(1971);
+console.log(ageOfLino);
+
+function calculateYearlyInterest(savings) {
+    var yearlyInterest = (savings / 100) * 3;
+    return yearlyInterest;
+
+};
+
+var savingsLino = calculateYearlyInterest(30000);
+console.log(savingsLino);
+
+function calculateDiscount(price) {
+    var discount;
+    if (price < 1000) {
+        discount = ((price / 100) * 2);
+    } else if (price > 1000 && price <= 1500) {
+        discount = ((price / 100) * 3);
+    } else if (price > 1501) {
+        discount = ((price / 100) * 4);
+    }
+    return discount;
+};
+
+var discountForTV = calculateDiscount(700);
+console.log('discount ' + discountForTV);
+
+var discountForTV = calculateDiscount(1100);
+console.log('discount ' + discountForTV);
+
+var discountForTV = calculateDiscount(1800);
+console.log('discount ' + discountForTV + 'discount percentage 4');
