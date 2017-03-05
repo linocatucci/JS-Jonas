@@ -4,6 +4,7 @@
 /*But, yeah, we could totally do that, and then in each file we would have one controller, which we could actually wrap in an IIFE to prevent the variable overwriting. That's totally possible :)*/
 // 3. Error handling when input fields are empty (description and value)
 // 4. Login but using then NodeJS ( Andrew Meads)
+// 5. Make the site responsive (with bootstrap bv. of met Jonas zijn grid system)
 
 
 // module pattern is an IIFE and uses closures (returning a function or an object with a function)
@@ -89,6 +90,7 @@ var budgetController = (function () {
                 // type = inc or exp
                 // data.allItems[type] = data.allItems.exp
                 // first select the last element of type [exp]
+                // bv. data.allItems.exp data.allItems.exp.length -1
                 ID = data.allItems[type][data.allItems[type].length - 1].id + 1;
             } else {
                 ID = 0;
