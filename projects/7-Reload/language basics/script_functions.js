@@ -461,7 +461,7 @@ function calculateAge(array) {
 }
 
 function printFullAge(array) {
-    calculateAge(array);
+    calculateAge(years);
     for (var i = 0; i < resultAge.length; i++) {
         if (resultAge[i] > 18) {
             result.push(true);
