@@ -493,6 +493,11 @@ var renteBedragen = [];
 function berekenRenteBedrag(array) {
 
     for (var i = 0; i < array.length; i++) {
+
+        if (array.equals(20000)) {
+
+            console.log('20000 is geraakt!')
+        }
         var renteBedrag = array[i] / 100 * 3;
         renteBedragen[i] = renteBedrag;
     }
