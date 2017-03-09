@@ -28,5 +28,11 @@ function interviewQuestion(job) {
         return function (name) {
             console.log(name + ' what do you teach?');
         }
+    } else if (job === 'designer') {
+        return function (name) {
+            console.log(name + ' can you explain what UX is?')
+        }
     }
 }
+var designerQ = interviewQuestion('designer');
+designerQ('lino');
