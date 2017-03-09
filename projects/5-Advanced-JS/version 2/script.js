@@ -68,7 +68,7 @@ function geeftEenGetalTerug(){
 }
 
 var toonGetal = geeftEenGetalTerug ();
-//toonGetal(4);
+toonGetal(4);
 
 
 function geeftEenGetalTerug(getal){

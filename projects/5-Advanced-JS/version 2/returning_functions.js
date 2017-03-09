@@ -49,6 +49,21 @@ function whichJobQuestion(job) {
     }
 }
 
+function interviewQuestion(job) {
+
+    if (job === 'teacher') {
+        return function (name) {
+            console.log(name + ' what do you teach?');
+        }
+    } else if (job === 'designer') {
+        return function (name) {
+            console.log(name + ' can you explain what UX is?')
+        }
+    }
+}
+var designerQ = interviewQuestion('designer');
+designerQ('lino');
+
 var teacherJob = whichJobQuestion('teacher');
 teacherJob('Lino');
 
