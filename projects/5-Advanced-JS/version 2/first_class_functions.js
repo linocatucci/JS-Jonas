@@ -22,11 +22,11 @@ console.log(ages);
 
 // first class functions : functions returning functions
 
-function interviewQuestion(job){
-    
-    if(job === 'teacher'){
+function interviewQuestion(job) {
+
+    if (job === 'teacher') {
         return function (name) {
-    console.log(name + ' what do you teach?');
-}
+            console.log(name + ' what do you teach?');
+        }
     }
 }
