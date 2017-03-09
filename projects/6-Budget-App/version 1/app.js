@@ -348,8 +348,8 @@ var UIController = (function () {
             // use a trick of the array slice method
             // pass a array into the slice method
             // the slice method is stored in the array prototype
-
             fieldsArray = Array.prototype.slice.call(fields);
+
             // new method to loop over an array and pass in a call back function, in this case an anonymous function
             // and the call back function( anonymous function) will expect up to 3 arguments, like as the call back function
             // to the addEventListener method. (current value, index nr 0 to lenght array -1, and entire array)
