@@ -31,13 +31,17 @@ var exp5 = new Expense(5, 'laptop verkocht', 15);
 
 data.exp.push(exp1, exp2, exp3, exp4, exp5);
 
-console.log(data);
+console.log(data.exp);
 
 function loopOverExpenses(array) {
 
     for (var i = 0; i < array.length; i++) {
 
-        console.log(array[i]);
+        //console.log(array[i]);
+
+        if (array.indexof >= 100) {
+            console.log(array[i]);
+        }
 
         /*
         for(index=0; index<array.length; index++)
@@ -48,10 +52,11 @@ function loopOverExpenses(array) {
         */
     }
 }
+loopOverExpenses(data.exp)
 
-console.log(loopOverExpenses(data.allItems.exp));
-
-var index1 = data.allItems.exp //.indexOf(Expense);
+//console.log('loop over data.exp array ' + loopOverExpenses(data.exp));
+/*
+var index1 = data.exp //.indexOf(Expense);
 console.log(index1);
 
 var array = [2, 5, 9];
@@ -62,3 +67,4 @@ if (index > -1) {
     array.splice(index, 1);
     console.log(array);
 }
+*/

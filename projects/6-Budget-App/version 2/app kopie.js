@@ -1,16 +1,16 @@
 // IIFE, anonymous function wrapped in ()
-var budgetController = (function() {
+var budgetController = (function () {
 
     var x = 23;
 
-    var add = function(a) {
+    var add = function (a) {
         return x + a;
     }
 
     return {
         // method publicTest is public exposed from the budgetController
         // closure was created here.
-        publicTest: function(b) {
+        publicTest: function (b) {
             // return it for the z var to console.log it
             return (add(b));
         }
@@ -19,22 +19,23 @@ var budgetController = (function() {
 })();
 
 
-// another module , UI budgetController
+// another module, UI budgetController
 // standalone module, not interacting with budgetController module
-var UIController = (function() {
+var UIController = (function () {
 
     // some code
 
 })();
 
 
-var controller = (function(budgetCtrl, UICtrl) {
+var controller = (function (budgetCtrl, UICtrl) {
 
     var z = budgetCtrl.publicTest(5);
 
     return {
-        anotherPublic: function() {
+        anotherPublic: function () {
             console.log(z);
+
         }
     }
 

@@ -3,36 +3,40 @@
 // to be public and used by the outside
 
 // the budgetController is an iife which will return an object
-var budgetController = (function() {
+
+var budgetController = (function () {
 
     var x = 23;
 
-    var add = function(a) {
+    function add(a) {
         return x + a;
-    };
-    // returning an object with an method which we want to be public (publicTest)!
+    }
     return {
-        // method key:value pair
-        publicTest: function(b) {
-            return (add(b));
+        publicTest: function (b) {
+            return add(b);
+            //console.log(add(b));
+            //console.log('het werkt');
         }
     };
 
 })();
 
-var UIController = (function() {
+var UIController = (function () {
 
-    // some code
+    // some code later
 
 })();
 
-var controller = (function(budgetCtrl, UICtrl) {
 
-    var z = budgetCtrl.publicTest(5);
+var controller = (function (budgetCtrl, UICtrl) {
+
+    var z = budgetCtrl.publicTest(40);
+
 
     return {
-        anotherPublic: function() {
+        anotherPublic: function () {
             console.log(z);
+            // controller.anotherPublic(); in de browser console aanroepen
         }
     }
 
