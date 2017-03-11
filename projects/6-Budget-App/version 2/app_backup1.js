@@ -32,8 +32,10 @@ var UIController = (function () {
                 inputType: document.querySelector('.add__type').value,
                 inputDescription: document.query
             }
-        }
+        },
+        getDOMStrings
     }
+
 
 })();
 

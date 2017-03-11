@@ -44,6 +44,19 @@ var controller = (function (budgetCtrl, UICtrl) {
 
     var DOMStrings = UICtrl.getDOMStrings();
 
+    var setUpEventListners = function () {
+        // ####### All Event Listners go here:
+        document.querySelector(DOMStrings.inputBtn).addEventListener('click', ctrlAddItem);
+
+        document.addEventListener('keypress', function (event) {
+
+            if (event.keyCode === 13 || event.which === 13) {
+
+                ctrlAddItem();
+            }
+        });
+    };
+
 
     // DRY principle
     var ctrlAddItem = function () {
@@ -61,19 +74,14 @@ var controller = (function (budgetCtrl, UICtrl) {
 
         //5. display the budget
 
-    }
-
-    // Add 
-    // ####### All Event Listners go here:
-    document.querySelector(DOMStrings.inputBtn).addEventListener('click', ctrlAddItem);
-
-    document.addEventListener('keypress', function (event) {
-
-        if (event.keyCode === 13 || event.which === 13) {
-
-            ctrlAddItem();
+    };
+    // again return an object with an function otherwise the init function cannot be called from the outside controller scope
+    return {
+        init: function () {
+            console.log('Application has started!');
+            setUpEventListners();
         }
-    });
-
+    };
 
 })(budgetController, UIController);
+controller.init();
