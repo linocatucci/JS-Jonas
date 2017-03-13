@@ -124,7 +124,7 @@ var john = {
     job: 'teacher',
     isMarried: false,
     family: ['jane', 'mark', 'bob'],
-    calculateAge: function() {
+    calculateAge: function () {
         this.age = 2016 - this.yearOfBirth;
     }
 };
@@ -141,7 +141,7 @@ var leaseCar = {
     color: 'blue',
     yearOfMake: 2017,
     leaseContract: 5,
-    calculateEndOfLeaseTerm: function() {
+    calculateEndOfLeaseTerm: function () {
         this.endContractyear = this.yearOfMake + this.leaseContract;
     }
 };
@@ -162,7 +162,7 @@ function Car(brand, type, engine, PK, color, price) {
     this.price = price;
 };
 
-Car.prototype.calculateYearlyCost = function() {
+Car.prototype.calculateYearlyCost = function () {
     console.log((this.price / 100 * 21) * 0.4);
 };
 
@@ -183,7 +183,7 @@ function Person(name, yearOfBirth, job) {
 // adding methods and functions to the function constructor prototype property
 // prototype property of our function constructor
 
-Person.prototype.calculateAge = function() {
+Person.prototype.calculateAge = function () {
     console.log(2016 - this.yearOfBirth);
 };
 
@@ -215,7 +215,7 @@ function Car(brand, type, engine, PK, color, price) {
     this.price = price;
 };
 
-Car.prototype.calculateYearlyCost = function() {
+Car.prototype.calculateYearlyCost = function () {
     console.log((this.price / 100 * 21) * 0.4);
 };
 
@@ -457,4 +457,3 @@ function interviewQuestion(job) {
     };
 }
 interviewQuestion('teacher')('John');
-

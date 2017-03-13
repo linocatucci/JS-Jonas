@@ -8,9 +8,60 @@
 // BUDGET CONTROLLER
 var budgetController = (function () {
 
-    //some code
+    var Expense = function (id, description, value) {
+        this.id = id;
+        this.description = description;
+        this.value = value;
+
+    };
+    var Income = function (id, description, value) {
+        this.id = id;
+        this.description = description;
+        this.value = value;
+
+    };
+
+    var data = {
+        allItems: {
+            exp: [],
+            inc: []
+        },
+        totals: {
+            exp: 0,
+            inc: 0
+        }
+    };
+
+    return {
+        addItem: function (type, desc, val) {
+            var newItem, id;
+
+            // create new id, 
+            if (data.allItems[type].length === 0) {
+                id = 0;
+
+            } else {
+                id = data.allItems[type][data.allItems[type].length - 1].id + 1;
+            }
+
+            // create new item based on inc or exp
+            if (type === 'inc') {
+                newItem = new Income(id, desc, val);
+            } else if (type === 'exp') {
+                newItem = new Expense(id, desc, val);
+            }
+
+            //push it in the datastructure
+            data.allItems[type].push(newItem);
+            return newItem; // other module need to use the newItem that's why we need to return it.
+        },
+        testing: function () {
+            console.log(data);
+        }
+    };
 
 })();
+
 
 //UI CONTROLLER
 var UIController = (function () {
@@ -60,13 +111,14 @@ var controller = (function (budgetCtrl, UICtrl) {
 
     // DRY principle
     var ctrlAddItem = function () {
+        var input, newItem;
 
         //1. Get the field input data and read them from HTML input types, the UIController will read the data
-        var input = UICtrl.getInputData();
+        input = UICtrl.getInputData();
         console.log(input);
 
-
         //2. add the item to the budget controller
+        newItem = budgetCtrl.addItem(input.type, input.description, input.value);
 
         //3. add the new item to the UI
 
