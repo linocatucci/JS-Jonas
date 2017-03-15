@@ -166,14 +166,14 @@ var UIController = (function () {
             var fields, fieldsArray;
             
             // with querySelectorAll the variable is not a normal array.
+            fields = document.querySelectorAll(DOMStrings.inputDescription + ',' + DOMStrings.inputValue);
             
             // slice returns an array, a clean nice array
-            
             // we need to make it a normal array
-         
+            fieldsArray = Array.prototype.slice.call(fields);
 
             // foreach over the new array and clear the value
-            fieldsArray.fo
+            fieldsArray.for
             //in the array the first element is the inputDesecription
          
         }
