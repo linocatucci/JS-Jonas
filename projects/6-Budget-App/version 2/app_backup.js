@@ -1,83 +1,194 @@
+/*
+        //1a create event listners, one for button and one for enter key
+        
+        //1. Get the field input data and read them from HTML input types, the UIController will read the data
+
+        //2. add the item to the budget controller
+
+
+        //3. add the new item to the UI
+            // create new id,    
+            // create new item based on inc or exp, 
+            //push it in the datastructure
+            // other module need to use the newItem that's why we need to return it.
+
+        //4. clear the fields
+
+        // convert the value string to a integer/number parseFloat
+        
+        // only add an item if the desc and value is not null
+                
+        //4.1 calculate the buget
+        
+        // return the budget
+
+        //5. display the budget on the UI
+*/
+
 // module pattern is an IIFE and uses closures (returning a function or an object with a function)
 // the module pattern secret is that it will return an object containing all the functions we would like
 // to be public and used by the outside
 
 // the budgetController is an iife which will return an object
 
-// ------ controller ------
-//1. Get the field input data and read them from HTML input types, the UIController will read the data
-/*
-    - eventhandler op de knop en op de enter toets
-*/
 
-//2. add the item to the budget controller
-
-//3. add the new item to the UI
-
-//4. calculate the buget
-
-//5. display the budget
-
-
+// BUDGET CONTROLLER
 var budgetController = (function () {
 
-    //2. add the item to the budget controller
-    // data structure for items
+    var Expense = function (id, description, value) {
+        this.id = id;
+        this.description = description;
+        this.value = value;
 
+    };
+    var Income = function (id, description, value) {
+        this.id = id;
+        this.description = description;
+        this.value = value;
 
+    };
+
+    var data = {
+        allItems: {
+            exp: [],
+            inc: []
+        },
+        totals: {
+            exp: 0,
+            inc: 0
+        },
+
+    };
+    
+    var calculateTotal
+    
+    
+    return {
+        addItem: function (type, desc, val) {
+            var newItem, id;
+
+            // create new id, 
+            if (data.allItems[type].length === 0) {
+                id = 0;
+
+            } else {
+                id = data.allItems[type][data.allItems[type].length - 1].id + 1;
+            }
+
+            // create new item based on inc or exp
+            if (type === 'inc') {
+                newItem = new Income(id, desc, val);
+            } else if (type === 'exp') {
+                newItem = new Expense(id, desc, val);
+            }
+
+            //push it in the datastructure
+            data.allItems[type].push(newItem);
+            return newItem; // other module need to use the newItem that's why we need to return it.
+        },
+        testing: function () {
+            console.log(data);
+        },
+        calculateBudget: function(){
+            
+            // calculate the total income and expense
+
+            
+            // calculcate the budget  = income - expense
+
+            
+            // calculate the percentage of income that we spent.
+
+            
+            // expense = 100 and income = 200, spent 50% = 100/200 = 0.5 * 100
+        },
+        // return the budget 
+        getBudget: 
+    };
 
 })();
 
+
+//UI CONTROLLER
 var UIController = (function () {
-    // private data
+
     var DOMStrings = {
         inputType: '.add__type',
         inputDescription: '.add__description',
         inputValue: '.add__value',
-        inputBtn: '.add__btn'
-    };
+        inputBtn: '.add__btn',
+        incomeContainer: '.income__list',
+        expenseContainer: '.expenses__list'
+    }
 
+    // object we return will be assigned to the UIController
     return {
-        //returning an object getInputData, which have a method/function
         getInputData: function () {
-
-            //1. Get the field input data and read them from HTML input types, the UIController will read the data
             return {
-                inputType: document.querySelector(DOMStrings.inputType).value,
-                inputDescription: document.querySelector(DOMStrings.inputDescription).value,
-                inputValue: document.querySelector(DOMStrings.inputValue).value
+                type: document.querySelector(DOMStrings.inputType).value, // Will be either inc or exp (html element)
+                description: document.querySelector(DOMStrings.inputDescription).value,
+                value: parseFloat(document.querySelector(DOMStrings.inputValue).value)
             };
         },
+
+        addListItem: function (obj, type) {
+            var html, newHtml, element;
+
+            // create HTML string with placeholder text
+
+            if (type === 'inc') {
+
+                element = DOMStrings.incomeContainer;
+
+                html = '<div class="item clearfix" id="income-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+
+            } else if (type === 'exp') {
+
+                element = DOMStrings.expenseContainer;
+
+                html = '<div class="item clearfix" id="expense-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">21 %</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+            }
+
+
+            // replace the placeholder text with some actual data
+            newHtml = html.replace('%id%', obj.id);
+            newHtml = newHtml.replace('%description%', obj.description);
+            newHtml = newHtml.replace('%value%', obj.value);
+
+            // Insert the html into the dom
+            document.querySelector(element).insertAdjacentHTML('beforeend', newHtml);
+        },
+
         getDOMStrings: function () {
             return DOMStrings;
+        },
+        clearFields: function(){
+            var fields, fieldsArray;
+            
+            // with querySelectorAll the variable is not a normal array.
+            
+            // slice returns an array, a clean nice array
+            
+            // we need to make it a normal array
+         
+
+            // foreach over the new array and clear the value
+            fieldsArray.fo
+            //in the array the first element is the inputDesecription
+         
         }
     };
+
 })();
 
-
+//CONTROLLER
 var controller = (function (budgetCtrl, UICtrl) {
-
-    // function called by eventhandlers:
 
     var DOMStrings = UICtrl.getDOMStrings();
 
-    var ctrlAddItem = function () {
-
-        // console.log('het werkt!');
-
-        var input = UICtrl.getInputData();
-        console.log(input);
-
-    };
-
-    //a. add the eventhandlers, the button and the return key
-    // door ze in een functie te zetten worden ze niet meer door de IIFE gestart. 
-    // ze zijn dus afgescherm van de buitenwereld.
     var setUpEventListners = function () {
-        document.querySelector(DOMStrings.inputBtn).addEventListener('click', function () {
-
-            ctrlAddItem();
-        });
+        // ####### All Event Listners go here:
+        document.querySelector(DOMStrings.inputBtn).addEventListener('click', ctrlAddItem);
 
         document.addEventListener('keypress', function (event) {
 
@@ -88,28 +199,56 @@ var controller = (function (budgetCtrl, UICtrl) {
         });
     };
 
+    
+    var updateBudget = function(){
+        
+        // convert the value string to a integer/number parseFloat
+        
+        // only add an item if the desc and value is not null
+                
+        //4.1 calculate the buget
+       
+        
+        // return the budget
+        
+      
+        
 
-    //a. add the eventhandlers, the button and the return key
+        //5. display the budget on the UI
+        
+    }
 
-    //1. Get the field input data and read them from HTML input types, the UIController will read the data
-    /*
-        - eventhandler op de knop en op de enter toets
-    */
+    // DRY principle
+    var ctrlAddItem = function () {
+        var input, newItem;
 
-    //2. add the item to the budget controller
+        //1. Get the field input data and read them from HTML input types, the UIController will read the data
+        input = UICtrl.getInputData();
+        console.log(input);
+        
+        if (input.description !=="" && !isNaN(input.value) && input.value > 0){
+        
+        //2. add the item to the budget controller
+        newItem = budgetCtrl.addItem(input.type, input.description, input.value);
 
-    //3. add the new item to the UI
+        //3. add the new item to the UI
+        UICtrl.addListItem(newItem, input.type);
 
-    //4. calculate the buget
-
-    //5. display the budget
+        //4. clear the fields
+     
+        
+        // 5. calculate and update the budget
+        updateBudget();
+        
+        }
+    };
+    // again return an object with an function otherwise the init function cannot be called from the outside controller scope
     return {
         init: function () {
             console.log('Application has started!');
             setUpEventListners();
         }
     };
-
 
 })(budgetController, UIController);
 controller.init();

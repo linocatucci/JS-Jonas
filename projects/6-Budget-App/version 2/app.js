@@ -1,3 +1,30 @@
+/*
+        //1a create event listners, one for button and one for enter key
+        
+        //1. Get the field input data and read them from HTML input types, the UIController will read the data
+
+        //2. add the item to the budget controller
+
+
+        //3. add the new item to the UI
+            // create new id,    
+            // create new item based on inc or exp, 
+            //push it in the datastructure
+            // other module need to use the newItem that's why we need to return it.
+
+        //4. clear the fields
+
+        // convert the value string to a integer/number parseFloat
+        
+        // only add an item if the desc and value is not null
+                
+        //4.1 calculate the buget
+        
+        // return the budget
+
+        //5. display the budget on the UI
+*/
+
 // module pattern is an IIFE and uses closures (returning a function or an object with a function)
 // the module pattern secret is that it will return an object containing all the functions we would like
 // to be public and used by the outside
@@ -29,8 +56,22 @@ var budgetController = (function () {
         totals: {
             exp: 0,
             inc: 0
-        }
+        },
+        budget: 0,
+        percentage: -1
     };
+    
+    var calculateTotal = function(type){
+        
+        var sum = 0;
+        
+        data.allItems[type].forEach(function(current){
+            // sum = sum + current.value
+            sum += current.value;
+            data.totals[type] = sum;
+            
+        }); 
+    }
 
     return {
         addItem: function (type, desc, val) {
@@ -57,6 +98,29 @@ var budgetController = (function () {
         },
         testing: function () {
             console.log(data);
+        },
+        calculateBudget: function(){
+            
+            // calculate the total income and expense
+            calculateTotal('exp');
+            calculateTotal('inc');
+            
+            
+            // calculcate the budget  = income - expense
+            data.budget = data.totals.inc - data.totals.exp;
+            
+            // calculate the percentage of income that we spent.
+            data.percentage = Math.round((data.totals.exp / data.totals.inc) * 100);
+            
+            // expense = 100 and income = 200, spent 50% = 100/200 = 0.5 * 100
+        },
+        getBudget: function(){
+            return {
+                budget: data.budget,
+                totalInc: data.allItems.inc,
+                totalExp: data.allItems.exp,
+                percentage: data.percentage
+            }
         }
     };
 
@@ -81,7 +145,7 @@ var UIController = (function () {
             return {
                 type: document.querySelector(DOMStrings.inputType).value, // Will be either inc or exp (html element)
                 description: document.querySelector(DOMStrings.inputDescription).value,
-                value: document.querySelector(DOMStrings.inputValue).value
+                value: parseFloat(document.querySelector(DOMStrings.inputValue).value)
             };
         },
 
@@ -115,6 +179,24 @@ var UIController = (function () {
 
         getDOMStrings: function () {
             return DOMStrings;
+        },
+        clearFields: function(){
+            var fields, fieldsArray;
+            
+            // with querySelectorAll the variable is not a normal array.
+            fields = document.querySelectorAll(DOMStrings.inputDescription + ',' + DOMStrings.inputValue);
+            // slice returns an array, a clean nice array
+            
+            // we need to make it a normal array
+            fieldsArray = Array.prototype.slice.call(fields);
+
+            // foreach
+            fieldsArray.forEach(function(current, index, array){
+                                
+                current.value="";
+            });
+            //in the array the first element is the inputDesecription
+            fieldsArray[0].focus();
         }
     };
 
@@ -138,6 +220,24 @@ var controller = (function (budgetCtrl, UICtrl) {
         });
     };
 
+    
+    var updateBudget = function(){
+        
+        // convert the value string to a integer/number parseFloat
+        
+        // only add an item if the desc and value is not null
+                
+        //4.1 calculate the buget
+        budgetCtrl.calculateBudget();
+        
+        // return the budget
+        
+        var budget = budgetCtrl.getBudget();
+        
+
+        //5. display the budget on the UI
+        
+    }
 
     // DRY principle
     var ctrlAddItem = function () {
@@ -146,17 +246,22 @@ var controller = (function (budgetCtrl, UICtrl) {
         //1. Get the field input data and read them from HTML input types, the UIController will read the data
         input = UICtrl.getInputData();
         console.log(input);
-
+        
+        if (input.description !=="" && !isNaN(input.value) && input.value > 0){
+        
         //2. add the item to the budget controller
         newItem = budgetCtrl.addItem(input.type, input.description, input.value);
 
         //3. add the new item to the UI
         UICtrl.addListItem(newItem, input.type);
 
-        //4. calculate the buget
-
-        //5. display the budget
-
+        //4. clear the fields
+        UICtrl.clearFields();
+        
+        // 5. calculate and update the budget
+        updateBudget();
+        
+        }
     };
     // again return an object with an function otherwise the init function cannot be called from the outside controller scope
     return {
