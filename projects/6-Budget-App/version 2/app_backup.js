@@ -57,10 +57,23 @@ var budgetController = (function () {
             exp: 0,
             inc: 0
         },
+        budget: 0,
+        percentage: -1
 
     };
     
-    var calculateTotal
+    var calculateTotal = function(type){
+        
+        var sum;
+        
+        data.allItems[type].forEach(function(current){
+            
+        sum += current.value;
+            
+        });
+        
+        data.totals[type].push(sum);
+    };
     
     
     return {
@@ -92,20 +105,20 @@ var budgetController = (function () {
         calculateBudget: function(){
             
             // calculate the total income and expense
-
+            calculateTotal('exp');
+            calculateTotal('inc');
             
             // calculcate the budget  = income - expense
-
+            data.budget = data.totals.inc - data.totals.exp;
             
             // calculate the percentage of income that we spent.
-
-            
+            data.percentage = (data.totals.exp  / data.totals.inc) * 100
+                        
             // expense = 100 and income = 200, spent 50% = 100/200 = 0.5 * 100
         },
         // return the budget 
-        getBudget: 
+        //getBudget: 
     };
-
 })();
 
 
@@ -173,7 +186,11 @@ var UIController = (function () {
             fieldsArray = Array.prototype.slice.call(fields);
 
             // foreach over the new array and clear the value
-            fieldsArray.for
+            fieldsArray.forEach(function(current, index, array){
+                
+                current.value="";
+                
+            });
             //in the array the first element is the inputDesecription
          
         }
@@ -207,7 +224,7 @@ var controller = (function (budgetCtrl, UICtrl) {
         // only add an item if the desc and value is not null
                 
         //4.1 calculate the buget
-       
+        budgetCtrl.calculateBudget();       
         
         // return the budget
         
@@ -235,7 +252,7 @@ var controller = (function (budgetCtrl, UICtrl) {
         UICtrl.addListItem(newItem, input.type);
 
         //4. clear the fields
-     
+        UICtrl.clearFields();
         
         // 5. calculate and update the budget
         updateBudget();
